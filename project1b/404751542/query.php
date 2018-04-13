@@ -13,46 +13,48 @@
     $servername="localhost";
     $username="cs143";
     $password="";
-    $conn=new mysqli($servername,$username,$password,'TEST');
+    $database="CS143";
+    $conn=new mysqli($servername,$username,$password,$database);
     if($conn->connect_error > 0){
        die("Connect Error");
     }
-    echo "Connected!";
-
-    if (!empty($_GET['expr'])) {
-
-      $query = $_GET['expr'];
-      $rs=$db->query($query);
-
-    if (!$rs)) {
-        $errmsg = $db->error;
-        print "Query failed: $errmsg <br />";
+    print "Connected!<br/>";
+    $query = $_GET['expr'];
+     
+  if (!empty($query)) {
+     
+  print "Querying ".$query."<br/>";
+  
+  $rs=$conn->query($query);
+  
+  if (!$rs) {
+        $errmsg = $conn->error;
+        echo "Query failed: $errmsg <br />";
         exit(1);
-    }
-
-    while($row = $rs->fetch_assoc()) {
-        $sid = $row['id'];
-        print "$id<br />";
-        }
-        $rs->free();
   }
+  print "Query succeeded! <br/>";
+  print "Total results: " . $rs->num_rows . "<br/>";
+  $first=TRUE;
+  while($row = $rs->fetch_assoc()) {
 
-/*    set_error_handler("error_handler", E_ALL);
-    try {
-      if (!empty($_GET['expr'])) {
-        if(preg_match('/[^0-9\+\-\*\.\/]+/',$_GET['expr'],$matches, PREG_OFFSET_CAPTURE)===1)
-          echo 'Invalid Expression!';
-        else {
-          $sol= eval('return '.$_GET['expr'].';');
-          echo $_GET['expr'].'='.$sol;
-        }
-      }
-    } catch (Exception $e) {
-      echo 'Invalid Expression!';
-    }
-    function error_handler($errno, $errstr) {
-      throw new ErrorException('', $errno);
-    }
-    */
+  $x=array_keys($row);
+
+  if($first){
+    foreach ($x as $i){
+       print $i . " ";
+     }
+   $first=FALSE;
+  }
+  print "<br/>";
+  
+  foreach($x as $i){
+            $res = $row[$i];
+            print $res . " ";
+       }
+       print "<br/>";
+  }
+  
+     $rs->free();
+  }
   ?>
 </html>
