@@ -5,4 +5,9 @@
       <input type="submit" value="Calculate">
     </form>
   </p>
+  <?php
+    if (!empty($_GET['expr'])) {
+      echo $_GET['expr'];
+    }
+  ?>
 </html>
