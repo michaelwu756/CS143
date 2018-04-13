@@ -6,13 +6,21 @@
     </form>
   </p>
   <?php
-    if (!empty($_GET['expr'])) {
-      $response= $_GET['expr'];
-      $sol= eval('return '.$response.';');
-      if(preg_match('[+-*/.0-9]+',$_GET['expr']))
-        echo 'Invalid Expression!';
-      else
-        echo $response.'='.$sol;
+    set_error_handler("error_handler", E_ALL);
+    try {
+      if (!empty($_GET['expr'])) {
+        if(preg_match('/[^0-9\+\-\*\.\/]+/',$_GET['expr'],$matches, PREG_OFFSET_CAPTURE)===1)
+          echo 'Invalid Expression!';
+        else {
+          $sol= eval('return '.$_GET['expr'].';');
+          echo $_GET['expr'].'='.$sol;
+        }
+      }
+    } catch (Exception $e) {
+      echo 'Invalid Expression!';
+    }
+    function error_handler($errno, $errstr) {
+      throw new ErrorException('', $errno);
     }
   ?>
 </html>
