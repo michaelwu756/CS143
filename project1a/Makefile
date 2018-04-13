@@ -1,2 +1,2 @@
-zipper:
-	zip -r P1A.zip 404751542/*
+P1A.zip: 404751542/*
+	zip -r $@ $^
