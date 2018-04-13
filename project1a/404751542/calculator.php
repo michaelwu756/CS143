@@ -7,7 +7,10 @@
   </p>
   <?php
     if (!empty($_GET['expr'])) {
-      echo $_GET['expr'];
+    $response= $_GET['expr'];
+    $sol= eval('return '.$response.';');
+    echo $response.'='.$sol;
+    
     }
   ?>
 </html>
