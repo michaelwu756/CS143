@@ -3,7 +3,7 @@
     Type a query!
     <br/>
     Example: Select * FROM Actor WHERE id=11;
-    
+
     <form method="GET">
       <input type="text" name="expr"><br>
       <input type="submit" value="Calculate">
@@ -17,17 +17,26 @@
     if($conn->connect_error > 0){
        die("Connect Error");
     }
-     echo "Connected!";
-     if (!empty($_GET['expr'])) {
-        if(FALSE)
-          echo 'Invalid Expression!';
-  else {
-  $query = $_GET['expr'];
-  $rs=$db->query($query);
-  
+    echo "Connected!";
 
+    if (!empty($_GET['expr'])) {
+
+      $query = $_GET['expr'];
+      $rs=$db->query($query);
+
+    if (!$rs)) {
+        $errmsg = $db->error;
+        print "Query failed: $errmsg <br />";
+        exit(1);
+    }
+
+    while($row = $rs->fetch_assoc()) {
+        $sid = $row['id'];
+        print "$id<br />";
+        }
+        $rs->free();
   }
-    
+
 /*    set_error_handler("error_handler", E_ALL);
     try {
       if (!empty($_GET['expr'])) {
