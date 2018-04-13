@@ -7,10 +7,12 @@
   </p>
   <?php
     if (!empty($_GET['expr'])) {
-    $response= $_GET['expr'];
-    $sol= eval('return '.$response.';');
-    echo $response.'='.$sol;
-    
+      $response= $_GET['expr'];
+      $sol= eval('return '.$response.';');
+      if(preg_match('[+-*/.0-9]+',$_GET['expr']))
+        echo 'Invalid Expression!';
+      else
+        echo $response.'='.$sol;
     }
   ?>
 </html>
