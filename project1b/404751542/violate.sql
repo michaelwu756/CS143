@@ -44,7 +44,7 @@ INSERT INTO MovieDirector VALUES(10, 16);
 
 INSERT INTO MovieDirector VALUES(2, 10);
 -- There exists no such director with id = 10
--- ERROR 1452 (23000) at line 45: Cannot add or update a child row: a foreign key constraint fails (`CS143`.`MovieDirector`, CONSTRAINT `MovieDirector_ibfk_2` FOREIGN KEY (`did`) REFERENCES `Director` (`id`)) 
+-- ERROR 1452 (23000) at line 45: Cannot add or update a child row: a foreign key constraint fails (`CS143`.`MovieDirector`, CONSTRAINT `MovieDirector_ibfk_2` FOREIGN KEY (`did`) REFERENCES `Director` (`id`))
 
 INSERT INTO MovieActor VALUES(2, 123123, 'Bystander');
 -- There exists no such actor with id = 123123
@@ -57,10 +57,3 @@ INSERT INTO MovieActor VALUES(10, 10, 'Donald Trump');
 INSERT INTO Review VALUES ('Jennie', '2018-04-15 5:30:24', 10, 8, 'WOW SO AMAZING');
 -- There is no movie with id = 10
 -- ERROR 1452 (23000) at line 57: Cannot add or update a child row: a foreign key constraint fails (`CS143`.`Review`, CONSTRAINT `Review_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `Movie` (`id`))
-
-
-
-
-
-
-
