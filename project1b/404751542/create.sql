@@ -37,22 +37,22 @@ CREATE TABLE Director(
 CREATE TABLE MovieGenre(
        mid INT NOT NULL,
        genre VARCHAR(20),
-       FOREIGN KEY (mid) references Movie(id))
+       FOREIGN KEY (mid) references Movie(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE MovieDirector(
        mid INT NOT NULL,
        did INT NOT NULL,
        FOREIGN KEY (mid) references Movie(id)),
-       FOREIGN KEY (did) references Director(id))
+       FOREIGN KEY (did) references Director(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE MovieActor(
        mid INT NOT NULL,
        aid INT NOT NULL,
        role VARCHAR(50),
-       FOREIGN KEY (mid) references Movie(id)),
-       FOREIGN KEY (aid) references Actor(id))
+       FOREIGN KEY (mid) references Movie(id),
+       FOREIGN KEY (aid) references Actor(id)
        dob DATE,
        dod DATE
 ) ENGINE=InnoDB;
@@ -87,5 +87,5 @@ CREATE TABLE Review(
        mid INT NOT NULL,
        rating INT,
        comment VARCHAR(500),
-       FOREIGN KEY (mid) references Movie(id))
+       FOREIGN KEY (mid) references Movie(id)
 ) ENGINE=InnoDB;
