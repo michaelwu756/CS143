@@ -12,7 +12,7 @@ CREATE TABLE Movie(
        year INT NOT NULL,
        rating VARCHAR(10),
        company VARCHAR(50),
-       CHECK (id <= (SELECT MAX(id) FROM MaxMovieID ))
+       CHECK (id <= (SELECT MAX(id) FROM MaxMovieID))
 ) ENGINE=InnoDB;
 
 CREATE TABLE Actor(
@@ -22,7 +22,7 @@ CREATE TABLE Actor(
        sex VARCHAR(6),
        dob DATE NOT NULL,
        dod DATE,
-       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID ))
+       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID))
 ) ENGINE=InnoDB;
 
 CREATE TABLE Director(
@@ -31,7 +31,7 @@ CREATE TABLE Director(
        first VARCHAR(20) NOT NULL,
        dob DATE NOT NULL,
        dod DATE,
-       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID ))
+       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID))
 ) ENGINE=InnoDB;
 
 CREATE TABLE MovieGenre(
