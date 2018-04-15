@@ -12,7 +12,8 @@ CREATE TABLE Movie(
        year INT NOT NULL,
        rating VARCHAR(10),
        company VARCHAR(50),
-       CHECK (id <= (SELECT MAX(id) FROM MaxMovieID))
+       CHECK (id <= (SELECT MAX(id) FROM MaxMovieID)),
+       CHECK (rating = "G" OR rating = "PG" OR rating = "PG-13" OR rating = "NC-17" OR rating = "R")
 ) ENGINE=InnoDB;
 
 CREATE TABLE Actor(
