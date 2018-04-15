@@ -43,7 +43,7 @@ CREATE TABLE MovieGenre(
 CREATE TABLE MovieDirector(
        mid INT NOT NULL,
        did INT NOT NULL,
-       FOREIGN KEY (mid) references Movie(id)),
+       FOREIGN KEY (mid) references Movie(id),
        FOREIGN KEY (did) references Director(id)
 ) ENGINE=InnoDB;
 
