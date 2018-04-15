@@ -1,3 +1,10 @@
+CREATE TABLE MaxPersonID(
+       id INT
+) ENGINE=InnoDB;
+
+CREATE TABLE MaxMovieID(
+       id INT
+) ENGINE=InnoDB;
 
 CREATE TABLE Movie(
        id INT PRIMARY KEY NOT NULL,
@@ -82,12 +89,3 @@ CREATE TABLE Review(
        comment VARCHAR(500),
        FOREIGN KEY (mid) references Movie(id))
 ) ENGINE=InnoDB;
-
-CREATE TABLE MaxPersonID(
-       id INT
-) ENGINE=InnoDB;
-
-CREATE TABLE MaxMovieID(
-       id INT
-) ENGINE=InnoDB;
-
