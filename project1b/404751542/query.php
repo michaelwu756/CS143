@@ -12,9 +12,9 @@
       $query = $_GET['query'];
 
         if (!empty($query)) {
-            print($query)
+            print($query);
         }
-        print "SELECT * FROM Actor WHERE id=10"
+        print "SELECT * FROM Actor WHERE id=10";
        ?>
       </textarea><br />
       <input type="submit" value="Submit">
