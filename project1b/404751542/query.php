@@ -12,10 +12,10 @@
       $query = $_GET['query'];
 
         if (!empty($query)) {
-            print($query);
+            echo trim($query);
         }
         else{
-           print "SELECT * FROM Actor WHERE id=10";
+           echo "SELECT * FROM Actor WHERE id=10";
         }
 
        ?>
