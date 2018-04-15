@@ -4,5 +4,4 @@ P1B.zip: 404751542/*
 reload_data: 404751542/*
 	mysql CS143 < auxiliaryScripts/droptable.sql
 	mysql CS143 < 404751542/create.sql
-	cp 404751542/load.sql ~/data/load.sql
-	cd ~/data && mysql CS143 < load.sql
+	mysql CS143 < 404751542/load.sql
