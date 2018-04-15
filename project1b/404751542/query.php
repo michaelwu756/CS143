@@ -1,9 +1,9 @@
 <html>
   <p>
     Type a query!
-  </p>
     <br/>
     Example: Select * FROM Actor WHERE id=11;
+  </p>
 
     <form method="GET">
       <textarea name="query" cols="60" rows="8">
@@ -14,7 +14,10 @@
         if (!empty($query)) {
             print($query);
         }
-        print "SELECT * FROM Actor WHERE id=10";
+        else{
+           print "SELECT * FROM Actor WHERE id=10";
+        }
+
        ?>
       </textarea><br />
       <input type="submit" value="Submit">
