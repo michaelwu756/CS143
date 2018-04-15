@@ -1,4 +1,4 @@
-/*CREATE TABLE Movie(
+CREATE TABLE Movie(
        id INT,
        title VARCHAR(100),
        year INT,
@@ -38,7 +38,7 @@ CREATE TABLE MovieActor(
        aid INT,
        role VARCHAR(50)
 );
-*/
+
 CREATE TABLE Review(
        name VARCHAR(20),
        time TIMESTAMP,
