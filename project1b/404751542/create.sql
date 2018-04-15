@@ -1,9 +1,11 @@
 CREATE TABLE MaxPersonID(
-       id INT
+       id INT,
+       CHECK (id > 0)
 ) ENGINE=InnoDB;
 
 CREATE TABLE MaxMovieID(
-       id INT
+       id INT,
+       CHECK (id > 0)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Movie(
@@ -60,6 +62,7 @@ CREATE TABLE Review(
        time TIMESTAMP NOT NULL,
        mid INT NOT NULL,
        rating INT,
+       CHECK (1 <= rating AND rating <=10),
        comment VARCHAR(500),
        FOREIGN KEY (mid) references Movie(id)
 ) ENGINE=InnoDB;
