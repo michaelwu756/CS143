@@ -35,26 +35,31 @@
   print "Query succeeded! <br/>";
   print "Total results: " . $rs->num_rows . "<br/>";
   $first=TRUE;
+  print "<table> ";
   while($row = $rs->fetch_assoc()) {
 
   $x=array_keys($row);
+ 
+      if($first){
+          print "<tr>";
+          foreach ($x as $i){
+               print "<th>" . $i . "</th>";
+          }
+      
+          $first=FALSE;
+          print "</tr>";
+          }
 
-  if($first){
-    foreach ($x as $i){
-       print $i . " ";
-     }
-   $first=FALSE;
-  }
-  print "<br/>";
-  
-  foreach($x as $i){
+      print "<tr>";
+      foreach($x as $i){
             $res = $row[$i];
-            print $res . " ";
-       }
-       print "<br/>";
+            print "<td>" . $res . "</td>";
+      }
+      print "</tr>";  
   }
-  
+      
      $rs->free();
-  }
+      }
+  print "</table> ";
   ?>
 </html>
