@@ -5,8 +5,8 @@
     Example: Select * FROM Actor WHERE id=11;
 
     <form method="GET">
-      <input type="text" name="expr"><br>
-      <input type="submit" value="Calculate">
+      <textarea name="query" cols="60" rows="8">SELECT * FROM Actor WHERE id=10</textarea><br />
+      <input type="submit" value="Submit">
     </form>
   </p>
   <?php
@@ -19,14 +19,14 @@
        die("Connect Error");
     }
     print "Connected!<br/>";
-    $query = $_GET['expr'];
-     
+    $query = $_GET['query'];
+
   if (!empty($query)) {
-     
+
   print "Querying ".$query."<br/>";
-  
+
   $rs=$conn->query($query);
-  
+
   if (!$rs) {
         $errmsg = $conn->error;
         echo "Query failed: $errmsg <br />";
@@ -35,31 +35,35 @@
   print "Query succeeded! <br/>";
   print "Total results: " . $rs->num_rows . "<br/>";
   $first=TRUE;
-  print "<table> ";
+
+ print "<h3>Results from MySQL:</h3>";
+
+  print "<table border=1 cellspacing=1 cellpadding=2> ";
   while($row = $rs->fetch_assoc()) {
 
   $x=array_keys($row);
- 
+
       if($first){
-          print "<tr>";
+          print "<tr align=center>";
           foreach ($x as $i){
                print "<th>" . $i . "</th>";
           }
-      
+
           $first=FALSE;
           print "</tr>";
           }
 
-      print "<tr>";
+      print "<tr align=center>";
       foreach($x as $i){
             $res = $row[$i];
             print "<td>" . $res . "</td>";
       }
-      print "</tr>";  
+      print "</tr>";
   }
-      
+
      $rs->free();
       }
   print "</table> ";
   ?>
 </html>
+
