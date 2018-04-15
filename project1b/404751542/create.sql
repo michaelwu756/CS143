@@ -52,33 +52,9 @@ CREATE TABLE MovieActor(
        aid INT NOT NULL,
        role VARCHAR(50),
        FOREIGN KEY (mid) references Movie(id),
-       FOREIGN KEY (aid) references Actor(id)
+       FOREIGN KEY (aid) references Actor(id),
        dob DATE,
        dod DATE
-) ENGINE=InnoDB;
-
-CREATE TABLE Director(
-       id INT,
-       last VARCHAR(20),
-       first VARCHAR(20),
-       dob DATE,
-       dod DATE
-) ENGINE=InnoDB;
-
-CREATE TABLE MovieGenre(
-       mid INT,
-       genre VARCHAR(20)
-) ENGINE=InnoDB;
-
-CREATE TABLE MovieDirector(
-       mid INT,
-       did INT
-) ENGINE=InnoDB;
-
-CREATE TABLE MovieActor(
-       mid INT,
-       aid INT,
-       role VARCHAR(50)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Review(
