@@ -23,7 +23,8 @@ CREATE TABLE Actor(
        sex VARCHAR(6),
        dob DATE NOT NULL,
        dod DATE,
-       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID))
+       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID)),
+       CHECK (sex = "Male" OR sex = "Female")
 ) ENGINE=InnoDB;
 
 CREATE TABLE Director(
