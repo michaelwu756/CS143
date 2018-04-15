@@ -1,50 +1,60 @@
+
 CREATE TABLE Movie(
-       id INT,
-       title VARCHAR(100),
-       year INT,
+       id INT PRIMARY KEY NOT NULL,
+       title VARCHAR(100) NOT NULL,
+       year INT NOT NULL,
        rating VARCHAR(10),
-       company VARCHAR(50)
+       company VARCHAR(50),
+       CHECK (id <= (SELECT MAX(id) FROM MaxMovieID ))
 );
 
 CREATE TABLE Actor(
-       id INT,
-       last VARCHAR(20),
-       first VARCHAR(20),
+       id INT PRIMARY KEY NOT NULL,
+       last VARCHAR(20) NOT NULL,
+       first VARCHAR(20) NOT NULL,
        sex VARCHAR(6),
-       dob DATE,
-       dod DATE
+       dob DATE NOT NULL,
+       dod DATE,
+       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID ))
 );
 
 CREATE TABLE Director(
-       id INT,
-       last VARCHAR(20),
-       first VARCHAR(20),
-       dob DATE,
-       dod DATE
+       id INT PRIMARY KEY NOT NULL,
+       last VARCHAR(20) NOT NULL,
+       first VARCHAR(20) NOT NULL,
+       dob DATE NOT NULL,
+       dod DATE,
+       CHECK (id <= (SELECT MAX(id) FROM MaxPersonID ))
 );
 
 CREATE TABLE MovieGenre(
-       mid INT,
-       genre VARCHAR(20)
+       mid INT NOT NULL,
+       genre VARCHAR(20),
+       FOREIGN KEY (mid) references Movie(id))
 );
 
 CREATE TABLE MovieDirector(
-       mid INT,
-       did INT
+       mid INT NOT NULL,
+       did INT NOT NULL,
+       FOREIGN KEY (mid) references Movie(id)),
+       FOREIGN KEY (did) references Director(id))
 );
 
 CREATE TABLE MovieActor(
-       mid INT,
-       aid INT,
-       role VARCHAR(50)
+       mid INT NOT NULL,
+       aid INT NOT NULL,
+       role VARCHAR(50),
+       FOREIGN KEY (mid) references Movie(id)),
+       FOREIGN KEY (aid) references Actor(id))
 );
 
 CREATE TABLE Review(
        name VARCHAR(20),
-       time TIMESTAMP,
-       mid INT,
+       time TIMESTAMP NOT NULL,
+       mid INT NOT NULL,
        rating INT,
-       comment VARCHAR(500)
+       comment VARCHAR(500),
+       FOREIGN KEY (mid) references Movie(id))
 );
 
 CREATE TABLE MaxPersonID(
