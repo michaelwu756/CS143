@@ -52,9 +52,7 @@ CREATE TABLE MovieActor(
        aid INT NOT NULL,
        role VARCHAR(50),
        FOREIGN KEY (mid) references Movie(id),
-       FOREIGN KEY (aid) references Actor(id),
-       dob DATE,
-       dod DATE
+       FOREIGN KEY (aid) references Actor(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Review(
