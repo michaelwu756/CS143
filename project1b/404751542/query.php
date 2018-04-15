@@ -1,15 +1,27 @@
 <html>
   <p>
     Type a query!
+  </p>
     <br/>
     Example: Select * FROM Actor WHERE id=11;
 
     <form method="GET">
-      <textarea name="query" cols="60" rows="8">SELECT * FROM Actor WHERE id=10</textarea><br />
+      <textarea name="query" cols="60" rows="8">
+
+      <?php
+      $query = $_GET['query'];
+
+        if (!empty($query)) {
+            print($query)
+        }
+        print "SELECT * FROM Actor WHERE id=10"
+       ?>
+      </textarea><br />
       <input type="submit" value="Submit">
     </form>
-  </p>
+
   <?php
+
     $servername="localhost";
     $username="cs143";
     $password="";
