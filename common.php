@@ -1,7 +1,8 @@
 <?php
    // -----------------------------------------------------------------------
+    include("./config.php");
 
-    function headerer($title){
+    function headerer(){
         print "<title>".$title."</title>\n";
         print '<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
@@ -14,8 +15,6 @@
      <link rel="stylesheet" href="/style.css" >
 
     ';
-    #<!--main css-->
-    #<link rel="stylesheet" href="static/css/home.css" />
     }
 
    function navigation($from)
@@ -71,45 +70,7 @@
    }
 
 
-   function jnavigation($from)
-   {
-    print '
-
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">CodeSprintJudge</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">';
-
-      if ($from != "judge")
-         print "<li class='nav-item'><a class='nav-link ' href='judge.php'> judgements </a></li>";
-      else print "<li class='nav-item'><a class='nav-link active' href='#'> judgements </a></li>";
-
-      if ($from != "jclarify")
-         print "<li class='nav-item'><a class='nav-link' href='jclarify.php'> clarifications </a></li>";
-      else print "<li class='nav-item'><a class='nav-link active' href='#'> clarifications </a></li>";
-
-      if ($from != "jscores")
-         print "<li class='nav-item'><a class='nav-link' href='jscores.php'> scores </a></li>";
-      else print "<li class='nav-item'><a class='nav-link active' href='#'> scores </a></li>";
-
-      if ($from != "jconfig")
-         print "<li class='nav-item'><a class='nav-link' href='jconfig.php'> configuration </a></li>";
-      else print "<li class='nav-item'><a class='nav-link active' href='#'> configuration </a></li>";
-      print '</ul>';
-      print '<ul class="navbar-nav navbar-right">';
-       print "<li class='nav-item'><a class='nav-link' href='..'> contest page </a></li>";
-      print '</ul>
-      </div>
-    </nav>';
-   }
-
-
-
-   function footer($email)
+   function footer()
    {
     print '<hr/>';
       print '<footer class="container py-5">
@@ -139,10 +100,10 @@
     </footer>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-';
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    ';
    }
 
 
