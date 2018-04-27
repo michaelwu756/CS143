@@ -1,0 +1,13 @@
+body{
+    background: url("static/img/bg-pattern.png");
+
+}
+.container a{
+    color:black;
+    text-decoration: underline;
+}
+.container a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
