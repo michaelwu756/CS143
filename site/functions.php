@@ -127,5 +127,5 @@ function get_movie_reviews($movie) // join on Review
 //TODO: put not null on rating?
 function get_movie_average_score($movie) // join on Review, AVG(rating)
 function search_actor($term) // select * from Actor where CONCAT(first, " ", last) like '%term1%' and CONCAT(first, " ", last) like '%term2%'
-function search_movie($term) // select * from Actor where title like '%term1%' and title like '%term2%'
+function search_movie($term) // select * from Movie where title like '%term1%' and title like '%term2%'
 ?>
