@@ -1,26 +1,8 @@
 <?php
 $servername="localhost";
-//$username="cs143";
-//$password="";
-$username="root";
-$password="donotenter";
-
+$username="cs143";
+$password="";
 $database="CS143";
-function run_query($query){
-  global $servername, $username, $password, $database;
-  $conn=new mysqli($servername,$username,$password,$database);
-  if($conn->connect_error > 0){
-    die("Connect Error");
-  }
-  if(!empty($query)){
-    $rs=$conn->query($query);
-    if (!$rs) {
-      $errmsg = $conn->error;
-      echo "Query failed: $errmsg <br />";
-      exit(1);
-    }
-  }
-}
 
 //insertion functions
 function add_actor($last, $first, $sex, $dob, $dod) {
@@ -31,7 +13,12 @@ function add_actor($last, $first, $sex, $dob, $dod) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $stmt = $conn->prepare("UPDATE MaxPersonID SET id = id + 1; INSERT INTO Actor (id, last, first, sex, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?, ?)");
+  $stmt = $conn->prepare("UPDATE MaxPersonID SET id = id + 1");
+  if (!$stmt->execute()) {
+    echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
+  }
+
+  $stmt = $conn->prepare("INSERT INTO Actor (id, last, first, sex, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssss", $last, $first, $sex, $dob, $dod);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
@@ -43,34 +30,41 @@ function add_actor($last, $first, $sex, $dob, $dod) {
 
 function add_director($last, $first, $dob, $dod) {
   global $servername, $username, $password, $database;
-  print '123';
-  $conn = new mysqli('localhost', 'root', 'donotenter', 'CS143');
-  print '123';
+  $conn = new mysqli($servername, $username, $password, $database);
+
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-  print '123';
-  $stmt = $conn->prepare("UPDATE MaxPersonID SET id = id + 1; INSERT INTO Director (id, last, first, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?)");
+
+  $stmt = $conn->prepare("UPDATE MaxPersonID SET id = id + 1");
+  if (!$stmt->execute()) {
+    echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
+  }
+
+  $stmt = $conn->prepare("INSERT INTO Director (id, last, first, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?)");
   $stmt->bind_param("ssss", $last, $first, $dob, $dod);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
   }
-  print '123';
 
   $stmt->close();
   $conn->close();
-  print '123';
 }
 
 function add_movie($title, $year, $rating, $company) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $stmt = $conn->prepare("UPDATE MaxMovieID SET id = id + 1; INSERT INTO Movie (id, title, year, rating, company) VALUES ((SELECT id FROM MaxMovieID LIMIT 1), ?, ?, ?, ?)");
+  $stmt = $conn->prepare("UPDATE MaxMovieID SET id = id + 1");
+  if (!$stmt->execute()) {
+    echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
+  }
+
+  $stmt = $conn->prepare("INSERT INTO Movie (id, title, year, rating, company) VALUES ((SELECT id FROM MaxMovieID LIMIT 1), ?, ?, ?, ?)");
   $stmt->bind_param("siss", $title, $year, $rating, $company);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
@@ -83,7 +77,7 @@ function add_movie($title, $year, $rating, $company) {
 //TODO: make time current time
 function add_review($name, $time, $movie_id, $rating, $comment) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -101,7 +95,7 @@ function add_review($name, $time, $movie_id, $rating, $comment) {
 
 function connect_actor_to_movie($movie_id, $actor_id, $role) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -119,7 +113,7 @@ function connect_actor_to_movie($movie_id, $actor_id, $role) {
 
 function connect_director_to_movie($movie_id, $director_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -138,7 +132,7 @@ function connect_director_to_movie($movie_id, $director_id) {
 //retrieval functions
 function get_actor_info($actor_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -156,7 +150,7 @@ function get_actor_info($actor_id) {
 
 function get_actor_movies($actor_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -174,7 +168,7 @@ function get_actor_movies($actor_id) {
 
 function get_movie_info($movie_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -192,7 +186,7 @@ function get_movie_info($movie_id) {
 
 function get_movie_actors($movie_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -210,7 +204,7 @@ function get_movie_actors($movie_id) {
 
 function get_movie_directors($movie_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -228,7 +222,7 @@ function get_movie_directors($movie_id) {
 
 function get_movie_genres($movie_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -246,7 +240,7 @@ function get_movie_genres($movie_id) {
 
 function get_movie_reviews($movie_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -262,9 +256,9 @@ function get_movie_reviews($movie_id) {
   $conn->close();
 }
 //TODO: put not null on rating?
-function get_movie_average_score($movie) {
+function get_movie_average_score($movie_id) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
