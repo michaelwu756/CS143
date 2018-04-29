@@ -35,7 +35,8 @@
           Add
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-          <a class="dropdown-item" href="add_actordirector.php">Actor/Director</a>
+          <a class="dropdown-item" href="add_actor.php">Actor</a>
+          <a class="dropdown-item" href="add_director.php">Director</a>
           <a class="dropdown-item" href="add_movie.php">Movie</a>
           <a class="dropdown-item" href="add_comment.php">Comment</a>
           <div class="dropdown-divider"></div>
@@ -55,11 +56,15 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
       <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>';
+   }
+
+   function form($info){
+        print '<div class="container"'.$info.'</div>';
    }
 
   function heading($header)
