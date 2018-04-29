@@ -14,13 +14,10 @@
       <?php navigation(); ?>
 
 <div>
-<h1>Main</h1>
+
+<?php heading('Search'); ?>
 
 
-
-<?php
-
-?>
 
 </div>
 

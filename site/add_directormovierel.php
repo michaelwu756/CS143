@@ -14,8 +14,9 @@
       <?php navigation(); ?>
 
 <div>
-<h1>Main</h1>
 
+
+<?php heading('Add Director/Movie Relation'); ?>
 
 
 <?php
