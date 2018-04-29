@@ -85,8 +85,7 @@ function add_movie($title, $year, $rating, $company, $genres) {
   $conn->close();
 }
 
-//TODO: make time current time
-function add_review($name, $time, $movie_id, $rating, $comment) {
+function add_review($name, $movie_id, $rating, $comment) {
   global $servername, $username, $password, $database;
   $conn = new mysqli($servername, $username, $password, $database);
 
@@ -94,8 +93,8 @@ function add_review($name, $time, $movie_id, $rating, $comment) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $stmt = $conn->prepare("INSERT INTO Review (name, time, mid, rating, comment) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssiis", $name, $time, $movie_id, $rating, $comment);
+  $stmt = $conn->prepare("INSERT INTO Review (name, time, mid, rating, comment) VALUES (?, NOW(), ?, ?, ?)");
+  $stmt->bind_param("siis", $name, $movie_id, $rating, $comment);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
   }
