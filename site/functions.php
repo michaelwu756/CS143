@@ -1,7 +1,10 @@
 <?php
 $servername="localhost";
-$username="cs143";
-$password="";
+//$username="cs143";
+//$password="";
+$username="root";
+$password="donotenter";
+
 $database="CS143";
 function run_query($query){
   global $servername, $username, $password, $database;

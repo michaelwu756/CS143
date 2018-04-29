@@ -1,7 +1,7 @@
 <?php
    include("./config.php");
    include("./common.php");
-   //include("./functions.php");
+   include("./functions.php");
 ?>
 
 <html>
@@ -24,6 +24,7 @@
     function display()
     {
 
+        add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
         notify_success("Added Director ".$_POST["fname"].' '.$_POST["lname"]);
     }
     if(isset($_POST['submit']))
@@ -35,19 +36,19 @@
 <?php form('<form method="POST" action="add_director.php">
         <div class="form-group">
           <label for="first_name">First Name</label>
-          <input type="text" class="form-control" placeholder="John" name="fname">
+          <input type="text" class="form-control" placeholder="John" name="fname" required>
         </div>
         <div class="form-group">
           <label for="last_name">Last Name</label>
-          <input type="text" class="form-control" placeholder="Smith" name="lname">
+          <input type="text" class="form-control" placeholder="Smith" name="lname" required>
         </div>
         <div class="form-group">
           <label for="DOB">Date of Birth</label>
-          <input type="text" class="form-control" placeholder="1998-03-07" name="dateb">
+          <input type="date" class="form-control" placeholder="1998-03-07" name="dateb" required>
         </div>
         <div class="form-group">
           <label for="DOD">Date of Death</label>
-          <input type="text" class="form-control" placeholder="(Leave blank if alive)" name="dated">
+          <input type="date" class="form-control" placeholder="(Leave blank if alive)" name="dated">
         </div>
         <button type="submit" name="submit" class="btn btn-default">Add It!</button>
     </form>'); ?>
