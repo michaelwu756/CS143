@@ -197,14 +197,18 @@ function get_movie_average_score($movie_id) {
   $conn->close();
 }
 
+//list functions
 function get_list_movies() {
   $conn = open_connection();
 
   $stmt = $conn->prepare("SELECT id, title, year, rating, company FROM Movie");
   check_execute($stmt);
+  $result = $stmt->get_result();
+  $movies = $result->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $movies;
 }
 
 function get_list_actors() {
@@ -212,9 +216,12 @@ function get_list_actors() {
 
   $stmt = $conn->prepare("SELECT id, last, first, sex, dob, dod FROM Actor");
   check_execute($stmt);
+  $result = $stmt-> get_result();
+  $actors = $result->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $actors;
 }
 
 function get_list_directors() {
@@ -222,9 +229,12 @@ function get_list_directors() {
 
   $stmt = $conn->prepare("SELECT id, last, first, dob, dod FROM Director");
   check_execute($stmt);
+  $result = $stmt-> get_result();
+  $directors = $result->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $directors;
 }
 
 //function search_actor($search_string) // select * from Actor where CONCAT(first, " ", last) like '%term1%' and CONCAT(first, " ", last) like '%term2%'
