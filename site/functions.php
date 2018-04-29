@@ -42,7 +42,10 @@ function add_director($last, $first, $dob, $dod) {
   }
 
   $stmt = $conn->prepare("INSERT INTO Director (id, last, first, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?)");
-  $stmt->bind_param("ssss", $last, $first, $dob, $dod);
+  if($dod==="")
+    $stmt->bind_param("ssss", $last, $first, $dob, NULL);
+  else
+    $stmt->bind_param("ssss", $last, $first, $dob, $dod);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
   }
