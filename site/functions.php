@@ -25,7 +25,7 @@ function run_query($query){
 //insertion functions
 function add_actor($last, $first, $sex, $dob, $dod) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -43,20 +43,23 @@ function add_actor($last, $first, $sex, $dob, $dod) {
 
 function add_director($last, $first, $dob, $dod) {
   global $servername, $username, $password, $database;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
+  print '123';
+  $conn = new mysqli('localhost', 'root', 'donotenter', 'CS143');
+  print '123';
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-
+  print '123';
   $stmt = $conn->prepare("UPDATE MaxPersonID SET id = id + 1; INSERT INTO Director (id, last, first, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?)");
   $stmt->bind_param("ssss", $last, $first, $dob, $dod);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
   }
+  print '123';
 
   $stmt->close();
   $conn->close();
+  print '123';
 }
 
 function add_movie($title, $year, $rating, $company) {
