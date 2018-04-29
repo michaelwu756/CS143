@@ -64,18 +64,24 @@
    }
 
    function form($info){
-        print '<div class="container"'.$info.'</div>';
+      print '<div class="container">'.$info.'</div>';
    }
 
   function heading($header)
    {
-  print '
-<div class="jumbotron jumbotron-fluid ">
-  <div class="container">
-  <h1 class="display-4">'.$header.'</h1>
-</div>
-</div>';
+  print
+    '<div class="jumbotron jumbotron-fluid ">
+      <div class="container">
+        <h1 class="display-4">'.$header.'</h1>
+      </div>
+    </div>';
    }
+
+
+  function notify_success($notif)
+  {
+    print '<div class="container"><div class="alert alert-success" role="alert">'.$notif.'</div></div>';
+  }
 
    function footer()
    {
