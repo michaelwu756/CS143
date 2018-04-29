@@ -15,7 +15,7 @@
 
 <div>
 
-    <?php heading('Main'); ?>
+<?php heading('Browse Actors'); ?>
 
 
 <?php

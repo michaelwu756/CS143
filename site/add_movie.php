@@ -15,7 +15,10 @@
 
 <div>
 
-    <?php heading('Main'); ?>
+<?php heading('Add Movie'); ?>
+
+
+
 
 
 <?php

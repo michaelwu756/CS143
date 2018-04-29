@@ -15,12 +15,9 @@
 
 <div>
 
-    <?php heading('Main'); ?>
+<?php heading('Search'); ?>
 
 
-<?php
-
-?>
 
 </div>
 

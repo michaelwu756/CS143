@@ -15,7 +15,8 @@
 
 <div>
 
-    <?php heading('Main'); ?>
+
+<?php heading('Add Director/Movie Relation'); ?>
 
 
 <?php

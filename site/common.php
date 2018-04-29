@@ -1,14 +1,10 @@
-<?php
-   include("./config.php");
-?>
-<?php
 
-    $title = "CS143 DataBase Query System";
-    $email = "jennie@jenniezheng.com";
-   // -----------------------------------------------------------------------
+<?php
+    include("./config.php");
 
 
     function headerer(){
+        global $title;
         print "<title>".$title."</title>\n";
         print '<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
@@ -26,27 +22,60 @@
    function navigation($from)
    {
     print '
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CS143</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#"> CS <img src="./images/paw.png" style="padding-left:1px; max-height: 25px;vertical-align: text-top;">  143</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Add
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+          <a class="dropdown-item" href="add_actor.php">Actor</a>
+          <a class="dropdown-item" href="add_director.php">Director</a>
+          <a class="dropdown-item" href="add_movie.php">Movie</a>
+          <a class="dropdown-item" href="add_comment.php">Comment</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="add_actormovierel.php">Actor/Movie Relation</a>
+          <a class="dropdown-item" href="add_directormovierel.php">Director/Movie Relation</a>
+        </div>
+      </li>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">';
-
-      if ($from != "index")
-         print "<li class='nav-item'><a class='nav-link ' href='index.php'> Index </a></li>";
-      else print "<li class='nav-item'><a class='nav-link active' href='#'> Index </a></li>";
-
-
-
-      print '</ul>
-      </div>
-    </nav>';
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Browsing
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+          <a class="dropdown-item" href="browse_actor.php">Actor</a>
+          <a class="dropdown-item" href="browse_movie.php">Movie</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+      <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>';
    }
 
+   function form($info){
+        print '<div class="container"'.$info.'</div>';
+   }
+
+  function heading($header)
+   {
+  print '
+<div class="jumbotron jumbotron-fluid ">
+  <div class="container">
+  <h1 class="display-4">'.$header.'</h1>
+</div>
+</div>';
+   }
 
    function footer()
    {
@@ -57,7 +86,6 @@
           <img src="./images/bear.png" style="margin-bottom:5px"></img>
           <p class="d-block mb-3 text-muted">CS143 Movies System 2018<br/>
             Created by Jennie Zheng and Michael Wu
-
          </p>
      </div>
       </div>
