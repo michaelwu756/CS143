@@ -61,7 +61,7 @@ function add_movie($title, $year, $rating, $company) {
   }
 
   $stmt = $conn->prepare("UPDATE MaxMovieID SET id = id + 1; INSERT INTO Movie (id, title, year, rating, company) VALUES ((SELECT id FROM MaxMovieID LIMIT 1), ?, ?, ?, ?)");
-  $stmt->bind_param("ssss", $title, $year, $rating, $company);
+  $stmt->bind_param("siss", $title, $year, $rating, $company);
   $stmt->execute();
 
   $stmt->close();
@@ -69,7 +69,7 @@ function add_movie($title, $year, $rating, $company) {
 }
 
 //TODO: make time current time
-function add_review($name, $time, $movie, $rating, $comment) {
+function add_review($name, $time, $movie_id, $rating, $comment) {
   global $servername, $username, $password, $database;
   $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -78,14 +78,14 @@ function add_review($name, $time, $movie, $rating, $comment) {
   }
 
   $stmt = $conn->prepare("INSERT INTO Review (name, time, mid, rating, comment) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $name, $time, $movie, $rating, $comment);
+  $stmt->bind_param("ssiis", $name, $time, $movie_id, $rating, $comment);
   $stmt->execute();
 
   $stmt->close();
   $conn->close();
 }
 
-function connect_actor_to_movie($movie, $actor, $role) {
+function connect_actor_to_movie($movie_id, $actor_id, $role) {
   global $servername, $username, $password, $database;
   $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -94,14 +94,14 @@ function connect_actor_to_movie($movie, $actor, $role) {
   }
 
   $stmt = $conn->prepare("INSERT INTO MovieActor (mid, aid, role) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $movie, $actor, $role);
+  $stmt->bind_param("iis", $movie_id, $actor_id, $role);
   $stmt->execute();
 
   $stmt->close();
   $conn->close();
 }
 
-function connect_director_to_movie($movie, $director) {
+function connect_director_to_movie($movie_id, $director_id) {
   global $servername, $username, $password, $database;
   $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -110,22 +110,142 @@ function connect_director_to_movie($movie, $director) {
   }
 
   $stmt = $conn->prepare("INSERT INTO MovieDirector (mid, did) VALUES (?, ?)");
-  $stmt->bind_param("ss", $movie, $director);
+  $stmt->bind_param("ii", $movie_id, $director_id);
   $stmt->execute();
 
   $stmt->close();
   $conn->close();
 }
 
-function get_actor_info($actor) // select * from Actor where id = $actor
-function get_actor_movies($actor) // join on MovieActor and Movie
-function get_movie_info($movie)// select * from Movie where id = $movie
-function get_movie_actors($movie) // join on MovieActor and Actor
-function get_movie_directors($movie) // join on MovieDirector and Director
-function get_movie_genres($movie) // join on MovieGenre
-function get_movie_reviews($movie) // join on Review
+//retrieval functions
+function get_actor_info($actor_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT last, first, sex, dob, dod FROM Actor WHERE id = ? ");
+  $stmt->bind_param("i", $actor_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function get_actor_movies($actor_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT role, title FROM MovieActor JOIN Movie ON mid = id WHERE aid = ?");
+  $stmt->bind_param("i", $actor_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function get_movie_info($movie_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT title, year, rating, company FROM Movie WHERE id = ?");
+  $stmt->bind_param("i", $movie_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function get_movie_actors($movie_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT role, last, first FROM MovieActor JOIN Actor ON aid = id WHERE mid = ?");
+  $stmt->bind_param("i", $movie_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function get_movie_directors($movie_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT last, first FROM MovieDirector JOIN Director ON did = id WHERE mid = ?");
+  $stmt->bind_param("i", $movie_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function get_movie_genres($movie_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT genre FROM MovieGenre WHERE mid = ?");
+  $stmt->bind_param("i", $movie_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function get_movie_reviews($movie_id) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT name, time, rating, comment FROM Review WHERE mid = ?");
+  $stmt->bind_param("i", $movie_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
 //TODO: put not null on rating?
-function get_movie_average_score($movie) // join on Review, AVG(rating)
-function search_actor($term) // select * from Actor where CONCAT(first, " ", last) like '%term1%' and CONCAT(first, " ", last) like '%term2%'
-function search_movie($term) // select * from Movie where title like '%term1%' and title like '%term2%'
+function get_movie_average_score($movie) {
+  global $servername, $username, $password, $database;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $stmt = $conn->prepare("SELECT AVG(rating) FROM Review GROUP BY mid HAVING mid = ?");
+  $stmt->bind_param("i", $movie_id);
+  $stmt->execute();
+
+  $stmt->close();
+  $conn->close();
+}
+
+function search_actor($search_string) // select * from Actor where CONCAT(first, " ", last) like '%term1%' and CONCAT(first, " ", last) like '%term2%'
+function search_movie($search_string) // select * from Movie where title like '%term1%' and title like '%term2%'
 ?>
