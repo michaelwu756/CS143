@@ -14,9 +14,7 @@
     <!-- Bootstrap core CSS-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-     <link rel="stylesheet" href="./style.css" >
-
-    ';
+     <link rel="stylesheet" href="./style.css" >';
     }
 
    function navigation()
@@ -57,7 +55,7 @@
     </ul>
     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
       <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
-      <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+      <button type="submit" class="btn btn-default">Search</button>
     </form>
   </div>
 </nav>';
