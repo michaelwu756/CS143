@@ -53,7 +53,7 @@ function add_director($last, $first, $dob, $dod) {
   $conn->close();
 }
 
-function add_movie($title, $year, $rating, $company) {
+function add_movie($title, $year, $rating, $company, $genres) {
   global $servername, $username, $password, $database;
   $conn = new mysqli($servername, $username, $password, $database);
 
@@ -70,6 +70,15 @@ function add_movie($title, $year, $rating, $company) {
   $stmt->bind_param("siss", $title, $year, $rating, $company);
   if (!$stmt->execute()) {
     echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
+  }
+
+  $stmt = $conn->prepare("INSERT INTO MovieGenre (mid, genre) VALUES ((SELECT id FROM MaxMovieID LIMIT 1), ?)");
+  foreach ($genres as $genre)
+  {
+    $stmt->bind_param("s", $genre);
+    if (!$stmt->execute()) {
+      echo "Execute failed: (" . $conn->errno . ") " . $conn->error;
+    }
   }
 
   $stmt->close();
