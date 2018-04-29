@@ -1,9 +1,8 @@
 <?php
 $servername="localhost";
 //$username="cs143";
-//$password="";
-$username="root";
-$password="donotenter";
+$username="jbunie";
+$password="";
 
 $database="CS143";
 function run_query($query){
@@ -43,9 +42,9 @@ function add_actor($last, $first, $sex, $dob, $dod) {
 
 function add_director($last, $first, $dob, $dod) {
   global $servername, $username, $password, $database;
-  print '123';
-  $conn = new mysqli('localhost', 'root', 'donotenter', 'CS143');
-  print '123';
+  print 'running mysqli';
+  $conn = new mysqli('localhost', 'jbunie', '', 'CS143');
+  print 'done running';
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }

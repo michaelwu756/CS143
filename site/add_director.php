@@ -13,17 +13,13 @@
 
 
 <body >
+
 <?php navigation(); ?>
-
-
-
 <?php heading('Add Director'); ?>
-
 
 <?php
     function display()
     {
-
         add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
         notify_success("Added Director ".$_POST["fname"].' '.$_POST["lname"]);
     }

@@ -19,7 +19,7 @@
     ';
     }
 
-   function navigation($from)
+   function navigation()
    {
     print '
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -47,7 +47,7 @@
 
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Browsing
+          Browse
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
           <a class="dropdown-item" href="browse_actor.php">Actor</a>
