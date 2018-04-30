@@ -40,13 +40,13 @@
         '<form method="POST" action="add_actormovierel.php">
           <div class="form-group">
             <label for="movie">Movie</label>
-            <select class="form-control" name="movie" required>'.$moviesOptions.
-            '</select>
+            <select class="form-control" name="movie" required>'.$moviesOptions.'
+            </select>
           </div>
           <div class="form-group">
             <label for="actor">Actor</label>
-            <select class="form-control" name="actor" required>'.$actorsOptions.
-            '</select>
+            <select class="form-control" name="actor" required>'.$actorsOptions.'
+            </select>
           </div>
           <div class="form-group">
             <label for="role">Role</label>

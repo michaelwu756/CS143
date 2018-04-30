@@ -38,8 +38,8 @@
             $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
           $moviesOptions = $moviesOptions.$newMovie;
       }
-      form('
-        <form method="POST" action="add_comment.php">
+      form(
+        '<form method="POST" action="add_comment.php">
           <div class="form-group">
             <label for="name">Reviewer Name</label>
             <input type="text" class="form-control" placeholder="Jennie" name="name" required>
