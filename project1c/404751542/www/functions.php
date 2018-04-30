@@ -290,7 +290,7 @@ function search_actor($search_string) {
   foreach(explode(' ', $search_string) as $word)
     $query .= 'CONCAT(first, " ", last) LIKE \'%'.$word.'%\' AND ';
   $query = substr($query, 0, strlen($query)-5);
-  $query .= ' SORT BY CONCAT(first, " ", last) ASC';
+  $query .= ' ORDER BY CONCAT(first, " ", last) ASC';
 
   $stmt = $conn->prepare($query);
   if(check_execute($conn, $stmt, $return_str)) return null;
@@ -312,7 +312,7 @@ function search_movie($search_string) {
   foreach(explode(' ', $search_string) as $word)
     $query .= 'title LIKE \'%'.$word.'%\' AND ';
   $query = substr($query, 0, strlen($query)-5);
-  $query .= ' SORT BY title ASC';
+  $query .= ' ORDER BY title ASC';
 
   $stmt = $conn->prepare($query);
   if(check_execute($conn, $stmt, $return_str)) return null;
