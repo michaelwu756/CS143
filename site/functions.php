@@ -1,11 +1,9 @@
 <?php
-$servername='localhost';
-$username='cs143';
-$password='';
-$database='CS143';
-
 function open_connection() {
-  global $servername, $username, $password, $database;
+  $servername='localhost';
+  $username='cs143';
+  $password='';
+  $database='CS143';
   $conn = new mysqli($servername, $username, $password, $database);
 
   if ($conn->connect_error) {
