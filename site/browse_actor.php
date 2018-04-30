@@ -30,7 +30,7 @@ form('<form method="GET" action="browse_actor.php">
     function display()
     {
 
-        notify_success("Browsing actors for ".$_GET["search"]);
+        notify("Browsing actors for ".$_GET["search"]);
         //$title, $year, $rating, $company
         //add_movie($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
 

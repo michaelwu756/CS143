@@ -21,7 +21,7 @@
     function display()
     {
         $res=add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
-        notify_success($res);
+        notify($res);
     }
     if(isset($_POST['submit']))
     {

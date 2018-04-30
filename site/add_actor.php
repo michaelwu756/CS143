@@ -21,10 +21,9 @@
     function display()
     {
         $res=add_actor($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success($res);
+        notify($res);
     }
-    if(isset($_POST['submit']))
-    {
+    if(isset($_POST['submit'])){
        display();
     }
 ?>

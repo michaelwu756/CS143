@@ -30,7 +30,7 @@ form('<form method="GET" action="search.php">
     function display()
     {
 
-        notify_success("Searching for ".$_GET["search"]);
+        notify("Searching for ".$_GET["search"]);
         //$title, $year, $rating, $company
 
     }
