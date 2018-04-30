@@ -67,8 +67,3 @@ form('<form method="POST" action="add_actormovierel.php">
 </body>
 
 </html>
-
-
-
-
-

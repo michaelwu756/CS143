@@ -86,8 +86,3 @@ form('<form method="POST" action="add_movie.php">
 </body>
 
 </html>
-
-
-
-
-
