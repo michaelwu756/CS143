@@ -298,7 +298,7 @@
     $conn = open_connection();
     $return_str = null;
 
-    $stmt = $conn->prepare('SELECT id, title, year, rating, company FROM Movie');
+    $stmt = $conn->prepare('SELECT id, title, year, rating, company FROM Movie ORDER BY title ASC');
     if(check_execute($conn, $stmt, $return_str)) return null;
     $movies = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
@@ -312,7 +312,7 @@
     $conn = open_connection();
     $return_str = null;
 
-    $stmt = $conn->prepare('SELECT id, last, first, sex, dob, dod FROM Actor');
+    $stmt = $conn->prepare('SELECT id, last, first, sex, dob, dod FROM Actor ORDER BY CONCAT(last, " ", first) ASC');
     if(check_execute($conn, $stmt, $return_str)) return null;
     $actors = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
@@ -326,7 +326,7 @@
     $conn = open_connection();
     $return_str = null;
 
-    $stmt = $conn->prepare('SELECT id, last, first, dob, dod FROM Director');
+    $stmt = $conn->prepare('SELECT id, last, first, dob, dod FROM Director ORDER BY CONCAT(last, " ", first) ASC');
     if(check_execute($conn, $stmt, $return_str)) return null;
     $directors = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
