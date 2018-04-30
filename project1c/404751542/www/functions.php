@@ -95,11 +95,12 @@ function add_review($name, $movie_id, $rating, $comment) {
   $stmt = $conn->prepare('SELECT title FROM Movie WHERE id = ?');
   $stmt->bind_param('i', $movie_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
-  $title = $stmt->get_result()->fetch_array()['title'];
-  stmt->close();
+  $row = $stmt->get_result()->fetch_array();
+  $title = $row['title'];
+  $stmt->close();
 
   $conn->close();
-  return 'Added review for '.$title.' sucessfully!';
+  return 'Added review for \''.$title.'\' sucessfully!';
 }
 
 function connect_actor_to_movie($movie_id, $actor_id, $role) {
@@ -114,11 +115,12 @@ function connect_actor_to_movie($movie_id, $actor_id, $role) {
   $stmt = $conn->prepare('SELECT title FROM Movie WHERE id = ?');
   $stmt->bind_param('i', $movie_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
-  $title = $stmt->get_result()->fetch_array()['title'];
-  stmt->close();
+  $row = $stmt->get_result()->fetch_array();
+  $title = $row['title'];
+  $stmt->close();
 
   $stmt = $conn->prepare('SELECT last, first FROM Actor WHERE id = ?');
-  $stmt->bind_param('i', $actor);
+  $stmt->bind_param('i', $actor_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
   $row = $stmt->get_result()->fetch_array();
   $last = $row['last'];
@@ -126,7 +128,7 @@ function connect_actor_to_movie($movie_id, $actor_id, $role) {
   $stmt->close();
 
   $conn->close();
-  return 'Connected actor '.$first.' '.$last.' to '.$title.' successfully!';
+  return 'Connected actor \''.$first.' '.$last.'\' to \''.$title.'\' successfully!';
 }
 
 function connect_director_to_movie($movie_id, $director_id) {
@@ -141,8 +143,9 @@ function connect_director_to_movie($movie_id, $director_id) {
   $stmt = $conn->prepare('SELECT title FROM Movie WHERE id = ?');
   $stmt->bind_param('i', $movie_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
-  $title = $stmt->get_result()->fetch_array()['title'];
-  stmt->close();
+  $row = $stmt->get_result()->fetch_array();
+  $title = $row['title'];
+  $stmt->close();
 
   $stmt = $conn->prepare('SELECT last, first FROM Director WHERE id = ?');
   $stmt->bind_param('i', $director_id);
@@ -153,7 +156,7 @@ function connect_director_to_movie($movie_id, $director_id) {
   $stmt->close();
 
   $conn->close();
-  return 'Connected director '.$first.' '.$last.' to '.$title.' successfully!';
+  return 'Connected director \''.$first.' '.$last.'\' to \''.$title.'\' successfully!';
 }
 
 //retrieval functions
