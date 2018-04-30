@@ -32,11 +32,19 @@
 <?php
 
 $targetID='';
+if(isset($_GET['movieID']))
+{
+   $targetID=$_GET['movieID'];
+}
 
 $movies = get_list_movies();
 $moviesOptions='';
 foreach($movies as $movie){
-    $newMovie= sprintf('<option value="%u">%s (%u)</option>',$movie['id'],$movie['title'],$movie['year']);
+    if($movie['id']==$targetID)
+        $newMovie= sprintf('<option value="%u" selected>%s (%u)</option>',$movie['id'],$movie['title'],$movie['year']);
+
+    else
+        $newMovie= sprintf('<option value="%u">%s (%u)</option>',$movie['id'],$movie['title'],$movie['year']);
     $moviesOptions=$moviesOptions.$newMovie;
 }
 

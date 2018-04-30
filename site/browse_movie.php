@@ -86,6 +86,7 @@
         print '<ul class="list-group">'.$actorsHTML.'</ul>';
         print '<hr/>';
          print '<h1>Reviews for this Movie</h1>';
+        print '<a href=add_comment.php?movieID='. $id .'> Leave a review for this movie! </a>';
         print '<ul class="list-group">'.$reviewsHTML.'</ul>';
          print '</div>';
 
