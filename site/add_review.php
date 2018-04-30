@@ -15,7 +15,7 @@
 <body >
 
 <?php navigation(); ?>
-<?php heading('Add Actor/Movie Relation'); ?>
+<?php heading('Add Review'); ?>
 
 <?php
     function display()
@@ -23,13 +23,16 @@
         $res=connect_actor_to_movie($_POST["movie"], $_POST["actor"], $_POST["role"]);
         notify($res);
     }
-    if(isset($_POST['submit']))
-    {
-       display();
-    }
+
 ?>
 
 <?php
+
+if(isset($_POST['submit']))
+{
+   display();
+}
+
 $actors = get_list_actors();
 $actorsOptions='';
 foreach($actors as $actor){
@@ -59,7 +62,7 @@ form('<form method="POST" action="add_actormovierel.php">
           <label for="role">Role</label>
           <input type="text" class="form-control" placeholder="bystander" name="role">
     </div>
-        <button type="submit" name="submit" class="btn btn-default">Add It!</button>
+        <button type="submit" name="submit" class="btn btn-default">Rate It!</button>
     </form>'); ?>
 
 <?php footer(); ?>

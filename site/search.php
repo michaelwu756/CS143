@@ -29,9 +29,7 @@ form('<form method="GET" action="search.php">
 <?php
     function display()
     {
-
         notify("Searching for ".$_GET["search"]);
-        //$title, $year, $rating, $company
 
     }
     if(isset($_GET['search']))

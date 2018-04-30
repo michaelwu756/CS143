@@ -31,6 +31,8 @@
 
 <?php
 
+$targetID='';
+
 $movies = get_list_movies();
 $moviesOptions='';
 foreach($movies as $movie){
@@ -59,7 +61,7 @@ form('
 
   <div class="form-group">
     <label for="name">Comment</label>
-    <input type="text" class="form-control" placeholder="Very sad movie :(" name="comment" required>
+    <input type="text" class="form-control" placeholder="Very sad movie :(" name="comment">
   </div>
   <button type="submit" name="submit" class="btn btn-default">Add It!</button>
 </form>'); ?>

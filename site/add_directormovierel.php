@@ -50,12 +50,12 @@ foreach($movies as $movie){
 
 form('<form method="POST" action="add_directormovierel.php">
     <div class="form-group">
-        <label for="rating">Movie</label>
+        <label for="movie">Movie</label>
         <select class="form-control" name="movie" required>'.$moviesOptions.'
         </select>
     </div>
     <div class="form-group">
-        <label for="rating">Director</label>
+        <label for="director">Director</label>
         <select class="form-control" name="director" required>'.$directorOptions.'
         </select>
     </div>
