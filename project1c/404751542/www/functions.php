@@ -35,6 +35,8 @@
     $stmt->close();
 
     $stmt = $conn->prepare('INSERT INTO Actor (id, last, first, sex, dob, dod) VALUES ((SELECT id FROM MaxPersonID LIMIT 1), ?, ?, ?, ?, ?)');
+    if($dod === '')
+      $dod = null;
     $stmt->bind_param('sssss', $last, $first, $sex, $dob, $dod);
     if(check_execute($conn, $stmt, $return_str)) return $return_str;
     $stmt->close();
