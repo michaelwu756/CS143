@@ -13,29 +13,29 @@
     <?php
       function display()
       {
-          $res = connect_actor_to_movie($_POST["movie"], $_POST["actor"], $_POST["role"]);
-          notify($res);
+        $res = connect_actor_to_movie($_POST["movie"], $_POST["actor"], $_POST["role"]);
+        notify($res);
       }
       if(isset($_POST['submit']))
       {
-         display();
+        display();
       }
     ?>
     <?php
       $actors = get_list_actors();
       $actorsOptions = '';
-      foreach($actors as $actor){
-          $newActor = sprintf('<option value="%u">%s %s (%s)</option>', $actor['id'], $actor['first'], $actor['last'], $actor['dob']);
-          $actorsOptions = $actorsOptions.$newActor;
+      foreach($actors as $actor)
+      {
+        $newActor = sprintf('<option value="%u">%s %s (%s)</option>', $actor['id'], $actor['first'], $actor['last'], $actor['dob']);
+        $actorsOptions = $actorsOptions.$newActor;
       }
-
       $movies = get_list_movies();
       $moviesOptions = '';
-      foreach($movies as $movie){
-          $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
-          $moviesOptions = $moviesOptions.$newMovie;
+      foreach($movies as $movie)
+      {
+        $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
+        $moviesOptions = $moviesOptions.$newMovie;
       }
-
       form(
         '<form method="POST" action="add_actormovierel.php">
           <div class="form-group">

@@ -13,28 +13,29 @@
     <?php
       function display()
       {
-          $res = add_review($_POST["name"], $_POST["movie"], $_POST["rating"], $_POST["comment"]);
-          notify($res);
-          header('Location: browse_movie.php?identifier='.$_POST["movie"]);
+        $res = add_review($_POST["name"], $_POST["movie"], $_POST["rating"], $_POST["comment"]);
+        notify($res);
+        header('Location: browse_movie.php?identifier='.$_POST["movie"]);
       }
       if(isset($_POST['submit']))
       {
-         display();
+        display();
       }
     ?>
     <?php
       $targetID = '';
       if(isset($_GET['movieID']))
       {
-         $targetID = $_GET['movieID'];
+        $targetID = $_GET['movieID'];
       }
       $movies = get_list_movies();
       $moviesOptions = '';
-      foreach($movies as $movie){
+      foreach($movies as $movie)
+      {
           if($movie['id'] == $targetID)
-              $newMovie = sprintf('<option value="%u" selected>%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
+            $newMovie = sprintf('<option value="%u" selected>%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
           else
-              $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
+            $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
           $moviesOptions = $moviesOptions.$newMovie;
       }
       form('
