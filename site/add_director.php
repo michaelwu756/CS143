@@ -20,8 +20,8 @@
 <?php
     function display()
     {
-        add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Added Director ".$_POST["fname"].' '.$_POST["lname"]);
+        $res=add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
+        notify_success($res);
     }
     if(isset($_POST['submit']))
     {
@@ -29,7 +29,8 @@
     }
 ?>
 
-<?php form('<form method="POST" action="add_director.php">
+<?php
+form('<form method="POST" action="add_director.php">
         <div class="form-group">
           <label for="first_name">First Name</label>
           <input type="text" class="form-control" placeholder="John" name="fname" required>

@@ -20,8 +20,8 @@
 <?php
     function display()
     {
-        add_actor($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Added Actor ".$_POST["fname"].' '.$_POST["lname"]);
+        $res=add_actor($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
+        notify_success($res);
     }
     if(isset($_POST['submit']))
     {
@@ -29,13 +29,8 @@
     }
 ?>
 
-<?php form('<form method="POST" action="add_director.php">
-        <label class="radio-inline radio">
-            <input type="radio" name="sex" checked="checked" value="male">Male
-        </label>
-        <label class="radio-inline radio">
-            <input type="radio" name="sex" value="female">Female
-        </label>
+<?php form('<form method="POST" action="add_actor.php">
+
 
         <div class="form-group">
           <label for="first_name">First Name</label>
@@ -46,6 +41,13 @@
           <input type="text" class="form-control" placeholder="Smith" name="lname" required>
         </div>
         <div class="form-group">
+            <label for="rating">Sex</label>
+            <select class="form-control" name="sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
           <label for="DOB">Date of Birth</label>
           <input type="date" class="form-control" placeholder="1998-03-07" name="dateb" required>
         </div>
@@ -53,6 +55,9 @@
           <label for="DOD">Date of Death</label>
           <input type="date" class="form-control" placeholder="(Leave blank if alive)" name="dated">
         </div>
+
+
+
         <button type="submit" name="submit" class="btn btn-default">Add It!</button>
     </form>'); ?>
 

@@ -261,6 +261,8 @@ function get_list_directors() {
   return $directors;
 }
 
+
 //function search_actor($search_string) // select * from Actor where CONCAT(first, " ", last) like '%term1%' and CONCAT(first, " ", last) like '%term2%'
 //function search_movie($search_string) // select * from Movie where title like '%term1%' and title like '%term2%'
 ?>
+
