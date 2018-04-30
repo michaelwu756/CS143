@@ -74,7 +74,6 @@
         </div>';
 
         print '<div class="container ">';
-        print '<hr/>';
         print '<h1>Actors in this Movie</h1>';
         print '<ul class="list-group">'.$actorsHTML.'</ul>';
         print '<hr/>';
