@@ -346,7 +346,7 @@
       return null;
     $query = 'SELECT id, last, first, dob, dod FROM Actor WHERE ';
     foreach(explode(' ', $search_string) as $word)
-      $query .= 'CONCAT(first, " ", last) LIKE \'%'.$word.'%\' AND ';
+      $query .= 'CONCAT(first, " ", last) LIKE \'%'.$conn->real_escape_string($word).'%\' AND ';
     $query = substr($query, 0, strlen($query)-5);
     $query .= ' ORDER BY CONCAT(first, " ", last) ASC';
 
@@ -369,7 +369,7 @@
       return null;
     $query = 'SELECT id, title, year, rating, company FROM Movie WHERE ';
     foreach(explode(' ', $search_string) as $word)
-      $query .= 'title LIKE \'%'.$word.'%\' AND ';
+      $query .= 'title LIKE \'%'.$conn->real_escape_string($word).'%\' AND ';
     $query = substr($query, 0, strlen($query)-5);
     $query .= ' ORDER BY title ASC';
 
