@@ -21,9 +21,8 @@
     function display()
     {
 
-        //$title, $year, $rating, $company
-        //add_movie($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Connected director with id ".$_POST["director"].' with movie with id '.$_POST["movie"]);
+        $res=connect_director_to_movie($_POST["movie"], $_POST["director"]);
+        notify($res);
     }
     if(isset($_POST['submit']))
     {

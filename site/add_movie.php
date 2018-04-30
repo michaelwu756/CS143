@@ -20,10 +20,8 @@
 <?php
     function display()
     {
-
-        //$title, $year, $rating, $company
-        //add_movie($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Added Movie ".$_POST["title"]);
+        $res = add_movie($_POST["title"], $_POST["year"], $_POST["rating"], $_POST["company"], $_POST["genre"]);
+        notify($res);
     }
     if(isset($_POST['submit']))
     {

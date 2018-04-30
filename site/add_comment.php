@@ -20,10 +20,8 @@
 <?php
     function display()
     {
-
-        //$title, $year, $rating, $company
-        //add_comment($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Added Review of ".$_POST["rating"]);
+        $res=add_review($_POST["name"], $_POST["movie"], $_POST["rating"], $_POST["comment"]);
+        notify($res);
     }
     if(isset($_POST['submit']))
     {

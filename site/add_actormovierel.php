@@ -20,10 +20,8 @@
 <?php
     function display()
     {
-
-        //$title, $year, $rating, $company
-        //add_movie($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Connected actor with id ".$_POST["actor"].' with movie with id '.$_POST["movie"]);
+        $res=connect_actor_to_movie($_POST["movie"], $_POST["actor"], $_POST["role"]);
+        notify($res);
     }
     if(isset($_POST['submit']))
     {

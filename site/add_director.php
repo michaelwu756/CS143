@@ -20,8 +20,8 @@
 <?php
     function display()
     {
-        add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Added Director ".$_POST["fname"].' '.$_POST["lname"]);
+        $res=add_director($_POST["lname"], $_POST["fname"], $_POST["dateb"], $_POST["dated"]);
+        notify_success($res);
     }
     if(isset($_POST['submit']))
     {
