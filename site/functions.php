@@ -95,7 +95,8 @@ function add_review($name, $movie_id, $rating, $comment) {
   $stmt = $conn->prepare('SELECT title FROM Movie WHERE id = ?');
   $stmt->bind_param('i', $movie_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
-  $title = $stmt->get_result()->fetch_array()['title'];
+  $row = $stmt->get_result()->fetch_array();
+  $title = $row['title'];
   stmt->close();
 
   $conn->close();
@@ -114,7 +115,8 @@ function connect_actor_to_movie($movie_id, $actor_id, $role) {
   $stmt = $conn->prepare('SELECT title FROM Movie WHERE id = ?');
   $stmt->bind_param('i', $movie_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
-  $title = $stmt->get_result()->fetch_array()['title'];
+  $row = $stmt->get_result()->fetch_array();
+  $title = $row['title'];
   stmt->close();
 
   $stmt = $conn->prepare('SELECT last, first FROM Actor WHERE id = ?');
@@ -141,7 +143,8 @@ function connect_director_to_movie($movie_id, $director_id) {
   $stmt = $conn->prepare('SELECT title FROM Movie WHERE id = ?');
   $stmt->bind_param('i', $movie_id);
   if(check_execute($conn, $stmt, $return_str)) return $return_str;
-  $title = $stmt->get_result()->fetch_array()['title'];
+  $row = $stmt->get_result()->fetch_array();
+  $title = $row['title'];
   stmt->close();
 
   $stmt = $conn->prepare('SELECT last, first FROM Director WHERE id = ?');
