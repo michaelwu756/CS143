@@ -43,9 +43,11 @@
 
         if(array_key_exists('0',$directors))
             $subtitle=$subtitle.' - Directed by ';
-        foreach($directors as $director){
-            $subtitle=$subtitle.' '.$director['first'].' '.$director['last'];
-        }
+
+        foreach($directors as $director)
+            $subtitle=$subtitle.' '.$director['first'].' '.$director['last'].',';
+
+        $subtitle=rtrim($subtitle,',');
 
         $actorsHTML='';
         foreach($actors as $actor){
