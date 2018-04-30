@@ -42,7 +42,7 @@
     $stmt->close();
 
     $conn->close();
-    return 'Added actor '.$first.' '.$last.' sucessfully!';
+    return 'Added actor \''.$first.' '.$last.'\' sucessfully!';
   }
 
   function add_director($last, $first, $dob, $dod)
@@ -62,7 +62,7 @@
     $stmt->close();
 
     $conn->close();
-    return 'Added director '.$first.' '.$last.' sucessfully!';
+    return 'Added director \''.$first.' '.$last.'\' sucessfully!';
   }
 
   function add_movie($title, $year, $rating, $company, $genres)
@@ -88,7 +88,7 @@
     $stmt->close();
 
     $conn->close();
-    return 'Added movie '.$title.' sucessfully!';
+    return 'Added movie \''.$title.'\' sucessfully!';
   }
 
   function add_review($name, $movie_id, $rating, $comment)

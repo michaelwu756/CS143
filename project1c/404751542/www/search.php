@@ -27,7 +27,7 @@
           $newActor = sprintf('<li class="list-group-item"><a href="browse_actor.php?identifier=%u">%s %s</a> - Born %s</li>', $actor['id'], $actor['first'], $actor['last'], $actor['dob']);
           $actorsHTML = $actorsHTML.$newActor;
         }
-        heading('Search results for "'.$query.'"...');
+        heading('Search results for \''.$query.'\'...');
         print '<div class="container ">';
         print '<h1>Actors Found</h1>';
         print '<ul class="list-group">'.$actorsHTML.'</ul>';
