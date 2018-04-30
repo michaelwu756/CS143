@@ -14,22 +14,9 @@
 <?php navigation(); ?>
 
 <?php
-    function display2()
-    {
 
-        heading('Browse Movies');
-
-        form('<form method="GET" action="browse_movie.php">
-        <div class="form-group">
-              <input type="search" class="form-control" placeholder="Search..." name="identifier">
-        </div>
-            <button type="submit" class="btn btn-default">Browse!</button>
-        </form>');
-    }
     if(!isset($_GET['identifier']))
-    {
-       display2();
-    }
+       header('Location: search.php');
 ?>
 
 <?php
@@ -42,6 +29,8 @@
         $genres=get_movie_genres($id);
         $reviews=get_movie_reviews($id);
         $ave=get_movie_average_score($id);
+        if(empty($ave))
+            $ave='N/A';
 
         $genreHTML='';
         foreach($genres as $genre){
@@ -58,7 +47,7 @@
             $subtitle=$subtitle.' '.$director['first'].' '.$director['last'];
         }
 
-        $actorsHTML='<li class="list-group-item list-group-item-info">Actors in this Movie</li>';
+        $actorsHTML='';
         foreach($actors as $actor){
             $newActor= sprintf('<li class="list-group-item"><a href="browse_actor.php?identifier=%u">%s %s</a> as %s</li>',$actor['id'],$actor['first'],$actor['last'],$actor['role']);
             $actorsHTML=$actorsHTML.$newActor;
@@ -66,11 +55,13 @@
 
         $reviewsHTML='';
 
-        if(!array_key_exists('0',$directors))
+        if(!array_key_exists('0',$reviews))
             $reviewsHTML='No Reviews for this movie!';
         foreach($reviews as $review){
-            $review= sprintf('<li class="list-group-item">%s - %s: %s %s<span class="badge badge-primary badge-pill">%s</span></li>',$review['time'],$review['name'],$actor['comment'],$actor['rating']);
-            $reviewsHTML=$reviewsHTML.$review;
+            $datetime = new DateTime($review['time']);
+            $prettydate = $datetime->format('M d, Y | g:i:s A');
+            $singleReview = sprintf('<li class="list-group-item"> %s on %s - %s <span class="badge badge-primary badge-pill">%s</span></li>',$review['name'],$prettydate,$review['comment'],$review['rating']);
+            $reviewsHTML=$reviewsHTML.$singleReview;
         }
 
         print '<div class="jumbotron jumbotron-fluid ">
@@ -80,13 +71,18 @@
           </div>
         </div>';
 
-         print '<div class="container ">';
-         print '<hr/>';
-         print '<h1>Actors in this Movie</h1>';
+        print '<div class="container ">';
+        print '<hr/>';
+        print '<h1>Actors in this Movie</h1>';
         print '<ul class="list-group">'.$actorsHTML.'</ul>';
         print '<hr/>';
-         print '<h1>Reviews for this Movie</h1>';
-        print '<a href=add_comment.php?movieID='. $id .'> Leave a review for this movie! </a>';
+        print '<h1>Reviews for this Movie</h1>';
+
+        print '<div style="margin-bottom:10px;">
+
+        <p > Average score: '.$ave.'</p>
+        <a href=add_comment.php?movieID='. $id .'> Leave review! </a>
+        </div>';
         print '<ul class="list-group">'.$reviewsHTML.'</ul>';
          print '</div>';
 
@@ -94,7 +90,14 @@
     }
     if(isset($_GET['identifier']))
     {
-       display();
+
+        if($info==get_movie_info($_GET["identifier"])){
+            heading("Movie not found!");
+        }
+        else {
+            display();
+        }
+
     }
 ?>
 

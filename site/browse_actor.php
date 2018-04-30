@@ -1,8 +1,7 @@
 <?php
    include("./config.php");
    include("./common.php");
-   include("./functions.php");
-?>
+   include("./functions.php"); ?>
 
 <html>
 
@@ -10,41 +9,65 @@
      <?php headerer(); ?>
 </head>
 
-
-
 <body >
 
 <?php navigation(); ?>
-<?php heading('Browse Actors'); ?>
 
 <?php
-
-form('<form method="GET" action="browse_actor.php">
-    <div class="form-group">
-          <input type="search" class="form-control" placeholder="Search..." name="search">
-    </div>
-        <button type="submit" class="btn btn-default">Browse!</button>
-    </form>'); ?>
+    if(!isset($_GET['identifier']))
+       header('Location: search.php');
+?>
 
 <?php
     function display()
     {
+        $id = $_GET["identifier"];
+        $info=get_actor_info($id);
+        $movies=get_actor_movies($id);
 
-        notify("Browsing actors for ".$_GET["search"]);
-        //$title, $year, $rating, $company
-        //add_movie($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
+        $subtitle='Born '.$info['dob'];
+        if(!empty ($info['dod']))
+            $subtitle=$subtitle.' - Died '.$info['dod'];
+         $subtitle=$subtitle.' - Sex '.$info['sex'];
+
+        $moviesHTML='';
+        foreach($movies as $movie){
+            $newMovie= sprintf('<li class="list-group-item"><a href="browse_movie.php?identifier=%u">%s (%s)</a> as %s</li>',$movie['id'],$movie['title'],$movie['year'],$movie['role']);
+            $moviesHTML=$moviesHTML.$newMovie;
+        }
+
+
+        print '<div class="jumbotron jumbotron-fluid ">
+          <div class="container">
+            <h1 class="display-4">'.$info['first'].' '.$info['last'].'</h1>
+            <h3 >'.$subtitle.'</h3>
+          </div>
+        </div>';
+
+        print '<div class="container ">';
+        print '<hr/>';
+        print '<h1>Movies with this Actor</h1>';
+        print '<ul class="list-group">'.$moviesHTML.'</ul>';
+        print '</div>';
+
 
     }
-    if(isset($_GET['search']))
+    if(isset($_GET['identifier']))
     {
-       display();
+
+        if($info==get_actor_info($_GET["identifier"])){
+            heading("Actor not found!");
+        }
+        else {
+            display();
+        }
+
     }
 ?>
 
 <?php footer(); ?>
 
 </body>
-
 </html>
 
 

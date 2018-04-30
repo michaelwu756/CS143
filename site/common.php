@@ -42,16 +42,6 @@
           <a class="dropdown-item" href="add_directormovierel.php">Director/Movie Relation</a>
         </div>
       </li>
-
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Browse
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-          <a class="dropdown-item" href="browse_actor.php">Actor</a>
-          <a class="dropdown-item" href="browse_movie.php">Movie</a>
-        </div>
-      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
       <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
@@ -83,7 +73,9 @@
 
    function footer()
    {
-      print
+
+    print '<div class="container" style="height:100px;"></div>';
+    print
       '
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

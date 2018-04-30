@@ -22,6 +22,7 @@
     {
         $res=add_review($_POST["name"], $_POST["movie"], $_POST["rating"], $_POST["comment"]);
         notify($res);
+        header('Location: browse_movie.php?identifier='.$_POST["movie"]);
     }
     if(isset($_POST['submit']))
     {
