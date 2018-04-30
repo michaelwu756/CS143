@@ -7,9 +7,8 @@
     print
       '<meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
-      <meta name="description" content="UCLA Coding Competition" />
+      <meta name="description" content="CS143 Project" />
       <meta name="author" content="" />
-      <title>Movies!</title>
       <!-- Bootstrap core CSS-->
       <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="css/bootstrap.min.css" >
