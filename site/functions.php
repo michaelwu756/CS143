@@ -289,7 +289,7 @@ function search_actor($search_string) {
   $query = 'SELECT id, last, first, dob, dod FROM Actor WHERE ';
   foreach(explode(' ', $search_string) as $word)
     $query .= 'CONCAT (first, " ", last) LIKE \'%'.$word.'%\' AND ';
-  $query = substr($query, strlen($query)-5);
+  $query = substr($query, 0, strlen($query)-5);
 
   $stmt = $conn->prepare($query);
   if(check_execute($conn, $stmt, $return_str)) return null;
@@ -310,7 +310,7 @@ function search_movie($search_string) {
   $query = 'SELECT id, title, year, rating, company FROM Movie WHERE ';
   foreach(explode(' ', $search_string) as $word)
     $query .= 'title LIKE \'%'.$word.'%\' AND ';
-  $query = substr($query, strlen($query)-5);
+  $query = substr($query, 0, strlen($query)-5);
 
   $stmt = $conn->prepare($query);
   if(check_execute($conn, $stmt, $return_str)) return null;
