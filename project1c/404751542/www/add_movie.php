@@ -38,7 +38,7 @@
           </div>
           <div class="form-group">
               <label for="rating">MPAA Rating</label>
-              <select class="form-control" name="rate">
+              <select class="form-control" name="rating">
                   <option value="G">G</option>
                   <option value="NC-17">NC-17</option>
                   <option value="PG">PG</option>
