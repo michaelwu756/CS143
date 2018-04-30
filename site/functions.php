@@ -321,4 +321,3 @@ function search_movie($search_string) {
   return $movies;
 }
 ?>
-
