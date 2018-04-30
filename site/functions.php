@@ -131,22 +131,26 @@ function get_actor_info($actor_id) {
 
   $stmt = $conn->prepare("SELECT last, first, sex, dob, dod FROM Actor WHERE id = ? ");
   $stmt->bind_param("i", $actor_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
 
 function get_actor_movies($actor_id) {
   $conn = open_connection();
   $return_str = null;
 
-  $stmt = $conn->prepare("SELECT role, title FROM MovieActor JOIN Movie ON mid = id WHERE aid = ?");
+  $stmt = $conn->prepare("SELECT id, role, title, year, rating, company FROM MovieActor JOIN Movie ON mid = id WHERE aid = ?");
   $stmt->bind_param("i", $actor_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
 
 function get_movie_info($movie_id) {
@@ -155,34 +159,40 @@ function get_movie_info($movie_id) {
 
   $stmt = $conn->prepare("SELECT title, year, rating, company FROM Movie WHERE id = ?");
   $stmt->bind_param("i", $movie_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
 
 function get_movie_actors($movie_id) {
   $conn = open_connection();
   $return_str = null;
 
-  $stmt = $conn->prepare("SELECT role, last, first FROM MovieActor JOIN Actor ON aid = id WHERE mid = ?");
+  $stmt = $conn->prepare("SELECT id, role, last, first, sex, dob, dod FROM MovieActor JOIN Actor ON aid = id WHERE mid = ?");
   $stmt->bind_param("i", $movie_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
 
 function get_movie_directors($movie_id) {
   $conn = open_connection();
   $return_str = null;
 
-  $stmt = $conn->prepare("SELECT last, first FROM MovieDirector JOIN Director ON did = id WHERE mid = ?");
+  $stmt = $conn->prepare("SELECT id, last, first, dob, dod FROM MovieDirector JOIN Director ON did = id WHERE mid = ?");
   $stmt->bind_param("i", $movie_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
 
 function get_movie_genres($movie_id) {
@@ -191,10 +201,15 @@ function get_movie_genres($movie_id) {
 
   $stmt = $conn->prepare("SELECT genre FROM MovieGenre WHERE mid = ?");
   $stmt->bind_param("i", $movie_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $tempRes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+  $result = array();
+  foreach($tempRes as $row)
+    $result[] = $row['genre'];
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
 
 function get_movie_reviews($movie_id) {
@@ -203,22 +218,26 @@ function get_movie_reviews($movie_id) {
 
   $stmt = $conn->prepare("SELECT name, time, rating, comment FROM Review WHERE mid = ?");
   $stmt->bind_param("i", $movie_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result;
 }
-//TODO: put not null on rating?
+
 function get_movie_average_score($movie_id) {
   $conn = open_connection();
   $return_str = null;
 
-  $stmt = $conn->prepare("SELECT AVG(rating) FROM Review GROUP BY mid HAVING mid = ?");
+  $stmt = $conn->prepare("SELECT AVG(rating) AS average FROM Review GROUP BY mid HAVING mid = ?");
   $stmt->bind_param("i", $movie_id);
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
+  $result = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
+  return $result['average'];
 }
 
 //list functions
@@ -227,7 +246,7 @@ function get_list_movies() {
   $return_str = null;
 
   $stmt = $conn->prepare("SELECT id, title, year, rating, company FROM Movie");
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
   $movies = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
@@ -240,7 +259,7 @@ function get_list_actors() {
   $return_str = null;
 
   $stmt = $conn->prepare("SELECT id, last, first, sex, dob, dod FROM Actor");
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
   $actors = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
@@ -253,14 +272,13 @@ function get_list_directors() {
   $return_str = null;
 
   $stmt = $conn->prepare("SELECT id, last, first, dob, dod FROM Director");
-  if(check_execute($conn, $stmt, $return_str)) return $return_str;
+  if(check_execute($conn, $stmt, $return_str)) return null;
   $directors = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
   $conn->close();
   return $directors;
 }
-
 
 //function search_actor($search_string) // select * from Actor where CONCAT(first, " ", last) like '%term1%' and CONCAT(first, " ", last) like '%term2%'
 //function search_movie($search_string) // select * from Movie where title like '%term1%' and title like '%term2%'
