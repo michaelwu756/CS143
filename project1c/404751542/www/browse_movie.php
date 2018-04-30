@@ -11,7 +11,25 @@
     <?php navigation(); ?>
     <?php
       if(!isset($_GET['identifier']))
-        header('Location: search.php');
+      {
+        $movies = get_list_movies();
+        $moviesOptions = '';
+        foreach($movies as $movie)
+        {
+          $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
+          $moviesOptions = $moviesOptions.$newMovie;
+        }
+        heading('Browse Movie');
+        form(
+          '<form method="GET" action="browse_movie.php">
+            <div class="form-group">
+                <label for="identifier">Movie</label>
+                <select class="form-control" name="identifier" required>'.$moviesOptions.'
+                </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-default">Go!</button>
+          </form>');
+      }
     ?>
     <?php
       function display()

@@ -52,7 +52,7 @@
             <label for="role">Role</label>
             <input type="text" class="form-control" placeholder="bystander" name="role">
           </div>
-            <button type="submit" name="submit" class="btn btn-default">Add It!</button>
+          <button type="submit" name="submit" class="btn btn-default">Add It!</button>
         </form>'); ?>
     <?php footer(); ?>
   </body>

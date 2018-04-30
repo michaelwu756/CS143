@@ -11,7 +11,25 @@
     <?php navigation(); ?>
     <?php
       if(!isset($_GET['identifier']))
-        header('Location: search.php');
+      {
+        $actors = get_list_actors();
+        $actorsOptions = '';
+        foreach($actors as $actor)
+        {
+          $newActor = sprintf('<option value="%u">%s %s (%s)</option>', $actor['id'], $actor['first'], $actor['last'], $actor['dob']);
+          $actorsOptions = $actorsOptions.$newActor;
+        }
+        heading('Browse Actor');
+        form(
+          '<form method="GET" action="browse_actor.php">
+            <div class="form-group">
+              <label for="identifier">Actor</label>
+              <select class="form-control" name="identifier" required>'.$actorsOptions.'
+              </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-default">Go!</button>
+          </form>');
+      }
     ?>
     <?php
       function display()

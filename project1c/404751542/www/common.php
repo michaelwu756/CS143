@@ -40,6 +40,15 @@
                 <a class="dropdown-item" href="add_directormovierel.php">Director/Movie Relation</a>
               </div>
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Browse
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <a class="dropdown-item" href="browse_actor.php">Actor</a>
+                <a class="dropdown-item" href="browse_movie.php">Movie</a>
+              </div>
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
             <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search"/>

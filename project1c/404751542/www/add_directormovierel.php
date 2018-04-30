@@ -33,8 +33,8 @@
       $moviesOptions = '';
       foreach($movies as $movie)
       {
-          $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
-          $moviesOptions = $moviesOptions.$newMovie;
+        $newMovie = sprintf('<option value="%u">%s (%u)</option>', $movie['id'], $movie['title'], $movie['year']);
+        $moviesOptions = $moviesOptions.$newMovie;
       }
       form(
         '<form method="POST" action="add_directormovierel.php">
