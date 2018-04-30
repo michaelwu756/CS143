@@ -29,7 +29,8 @@
     }
 ?>
 
-<?php form('<form method="POST" action="add_director.php">
+<?php
+form('<form method="POST" action="add_director.php">
         <div class="form-group">
           <label for="first_name">First Name</label>
           <input type="text" class="form-control" placeholder="John" name="fname" required>

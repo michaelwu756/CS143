@@ -23,7 +23,7 @@
 
         //$title, $year, $rating, $company
         //add_movie($_POST["lname"], $_POST["fname"], $_POST["sex"], $_POST["dateb"], $_POST["dated"]);
-        notify_success("Connected actor ".$_POST["actor"].' with movie '.$_POST["movie"]);
+        notify_success("Connected actor with id ".$_POST["actor"].' with movie with id '.$_POST["movie"]);
     }
     if(isset($_POST['submit']))
     {
@@ -32,20 +32,30 @@
 ?>
 
 <?php
+$actors = get_list_actors();
+$actorsOptions='';
+foreach($actors as $actor){
+    $newActor= sprintf('<option value="%u">%s %s (%s)</option>',$actor['id'],$actor['first'],$actor['last'],$actor['dob']);
+    $actorsOptions=$actorsOptions.$newActor;
+}
 
+$movies = get_list_movies();
+$moviesOptions='';
+foreach($movies as $movie){
+    $newMovie= sprintf('<option value="%u">%s (%u)</option>',$movie['id'],$movie['title'],$movie['year']);
+    $moviesOptions=$moviesOptions.$newMovie;
+}
 
 form('<form method="POST" action="add_actormovierel.php">
     <div class="form-group">
         <label for="rating">Movie</label>
-        <select class="form-control" name="movie" required>
-            <option value="NULL">NULL</option>
-        </select>
+        <select class="form-control" name="movie" required>'.$moviesOptions.
+    '</select>
     </div>
     <div class="form-group">
         <label for="rating">Actor</label>
-        <select class="form-control" name="actor" required>
-            <option value="NULL">NULL</option>
-        </select>
+        <select class="form-control" name="actor" required>'.$actorsOptions.
+ '</select>
     </div>
     <div class="form-group">
           <label for="DOB">Date of Birth</label>

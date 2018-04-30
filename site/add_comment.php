@@ -33,6 +33,13 @@
 
 <?php
 
+$movies = get_list_movies();
+$moviesOptions='';
+foreach($movies as $movie){
+    $newMovie= sprintf('<option value="%u">%s (%u)</option>',$movie['id'],$movie['title'],$movie['year']);
+    $moviesOptions=$moviesOptions.$newMovie;
+}
+
 
 form('
   <form method="POST" action="add_comment.php">
@@ -43,9 +50,8 @@ form('
 
     <div class="form-group">
       <label for="movie">Movie</label>
-      <select class="form-control" name="movie" required>
-        <option value="NULL">NULL</option>
-      </select>
+      <select class="form-control" name="movie" required>'.$moviesOptions.
+    '</select>
     </div>
 
   <div class="form-group">
