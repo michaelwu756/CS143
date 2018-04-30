@@ -25,20 +25,19 @@
 
         $moviesHTML='';
         foreach($movies as $movie){
-            $newMovie= sprintf('<li class="list-group-item"><a href="browse_movie.php?identifier=%u">%s (%s)</a></li>',$movie['id'],$movie['title'],$movie['year']);
+            $newMovie= sprintf('<li class="list-group-item"><a href="browse_movie.php?identifier=%u">%s</a> (%s)</li>',$movie['id'],$movie['title'],$movie['year']);
             $moviesHTML=$moviesHTML.$newMovie;
         }
 
         $actorsHTML='';
         foreach($actors as $actor){
-            $newActor= sprintf('<li class="list-group-item"><a href="browse_actor.php?identifier=%u">%s %s</a></li>',$actor['id'],$actor['first'],$actor['last']);
+            $newActor= sprintf('<li class="list-group-item"><a href="browse_actor.php?identifier=%u">%s %s</a> - Born %s</li>',$actor['id'],$actor['first'],$actor['last'],$actor['dob']);
             $actorsHTML=$actorsHTML.$newActor;
         }
 
 
         heading('Search results for "'.$query.'"...');
          print '<div class="container ">';
-         print '<hr/>';
          print '<h1>Actors Found</h1>';
         print '<ul class="list-group">'.$actorsHTML.'</ul>';
         print '<hr/>';

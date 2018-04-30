@@ -21,7 +21,7 @@
    {
     print '
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Database</a>
+  <a class="navbar-brand" href="index.php">Movie Database</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -84,65 +84,4 @@
    }
 
 
-
-   // -----------------------------------------------------------------------
-
-   class Clarification
-   {
-      var $id;
-      var $from;
-      var $problem;
-      var $responded = False;
-      var $fresh = False;
-      var $question;
-      var $answer;
-
-      function Clarification($team, $p, $q)
-      {
-         $this->id = time();
-         $this->from = $team;
-         $this->problem = $p;
-         $this->question = $q;
-      }
-
-      function read($fp)
-      {
-         $stamp = (int) trim(fgets($fp));
-         $team = trim(fgets($fp));
-         $p = trim(fgets($fp));
-         $r = (boolean) trim(fgets($fp));
-         $q = "";
-         $a = "";
-         if (trim(fgets($fp)) == "{")
-            for ($line = fgets($fp); trim($line) != "}"; $line = fgets($fp))
-               $q = $q . $line;
-         if ($r && trim(fgets($fp)) == "{")
-            for ($line = fgets($fp); trim($line) != "}"; $line = fgets($fp))
-               $a = $a . $line;
-
-         $c = new Clarification($team, $p, $q);
-         $c->id = $stamp;
-         $c->responded = $r;
-         $c->answer = $a;
-
-         return $c;
-      }
-
-      function write($fp)
-      {
-         if ($fp)
-         {
-            fputs($fp, $this->id . "\n");
-            fputs($fp, $this->from . "\n");
-            fputs($fp, $this->problem . "\n");
-            fputs($fp, $this->responded . "\n");
-            fputs($fp, "{\n" . $this->question . "\n}\n");
-            if ($this->responded)
-               fputs($fp, "{\n" . $this->answer . "\n}\n");
-         }
-      }
-
-   }
-
-       // -----------------------------------------------------------------------
 ?>

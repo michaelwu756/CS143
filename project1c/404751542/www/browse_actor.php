@@ -45,7 +45,6 @@
         </div>';
 
         print '<div class="container ">';
-        print '<hr/>';
         print '<h1>Movies with this Actor</h1>';
         print '<ul class="list-group">'.$moviesHTML.'</ul>';
         print '</div>';

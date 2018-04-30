@@ -43,9 +43,11 @@
 
         if(array_key_exists('0',$directors))
             $subtitle=$subtitle.' - Directed by ';
-        foreach($directors as $director){
-            $subtitle=$subtitle.' '.$director['first'].' '.$director['last'];
-        }
+
+        foreach($directors as $director)
+            $subtitle=$subtitle.' '.$director['first'].' '.$director['last'].',';
+
+        $subtitle=rtrim($subtitle,',');
 
         $actorsHTML='';
         foreach($actors as $actor){
@@ -72,7 +74,6 @@
         </div>';
 
         print '<div class="container ">';
-        print '<hr/>';
         print '<h1>Actors in this Movie</h1>';
         print '<ul class="list-group">'.$actorsHTML.'</ul>';
         print '<hr/>';
