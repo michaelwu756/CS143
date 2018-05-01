@@ -62,8 +62,7 @@ FROM
      AND (text LIKE '%for the winter%'
        OR text LIKE '%due to snow%')
    GROUP BY highway, area
-   ORDER BY count DESC
-   LIMIT 20)
+   ORDER BY count DESC)
   AS a
 JOIN
   (SELECT highway, area, count(*)*100/365 AS closedPct
@@ -86,8 +85,8 @@ and got the folliwng result set.
         \begin{tabular}{c|c|c}
                 highway & area & closedPct\\
                 \hline
-                SR89 & IN THE NORTHERN CALIFORNIA AREA \& SIERRA NEVADA & 66.5753\\
                 SR120 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 66.5753\\
+                SR89 & IN THE NORTHERN CALIFORNIA AREA \& SIERRA NEVADA & 66.5753\\
                 SR4 & IN THE CENTRAL CALIFORNIA AREA & 63.5616\\
                 SR203 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 61.3699\\
                 SR108 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 55.6164
