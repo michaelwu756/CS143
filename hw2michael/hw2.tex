@@ -11,41 +11,41 @@
 
 I ran the following query
 \begin{verbatim}
-SELECT highway, area, COUNT(*) AS count
+SELECT highway, area
 FROM caltrans
 WHERE text LIKE '%closed%'
   AND (text LIKE '%for the winter%'
     OR text LIKE '%due to snow%')
 GROUP BY highway, area
-ORDER BY count DESC
+ORDER BY highway DESC, area DESC
 LIMIT 20;
 \end{verbatim}
 and got the result set shown below.
 \begin{center}
         \hspace*{-4cm}
-        \begin{tabular}{c|c|c}
-                highway & area & count\\
+        \begin{tabular}{c|c}
+                highway & area\\
                 \hline
-                SR120 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 316\\
-                SR89  & IN THE NORTHERN CALIFORNIA AREA \& SIERRA NEVADA & 271\\
-                SR203 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 224\\
-                SR108 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 203\\
-                SR4 & IN THE CENTRAL CALIFORNIA AREA & 200\\
-                SR168 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 152\\
-                SR270 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 145\\
-                SR89 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 131\\
-                SR2 & IN THE SOUTHERN CALIFORNIA AREA &   129\\
-                SR158 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA  & 95\\
-                SR172 & IN THE NORTHERN CALIFORNIA AREA & 66\\
-                SR88 & IN THE CENTRAL CALIFORNIA \& SIERRA NEVADA & 17\\
-                SR3 & IN THE NORTHERN CALIFORNIA AREA & 13\\
-                SR130 & IN THE CENTRAL CALIFORNIA AREA & 7\\
-                I5 & IN THE NORTHERN CALIFORNIA AREA & 5\\
-                SR33 & IN THE SOUTHERN CALIFORNIA AREA & 4\\
-                US395 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA & 3\\
-                SR18 & IN THE SOUTHERN CALIFORNIA AREA & 2\\
-                SR267 & IN THE NORTHERN CALIFORNIA AREA & 1\\
-                SR138 & IN THE SOUTHERN CALIFORNIA AREA & 1
+                US395 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR89 & IN THE NORTHERN CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR89 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR88 & IN THE CENTRAL CALIFORNIA \& SIERRA NEVADA\\
+                SR4 & IN THE CENTRAL CALIFORNIA AREA\\
+                SR38 & IN THE SOUTHERN CALIFORNIA AREA\\
+                SR330 & IN THE SOUTHERN CALIFORNIA AREA\\
+                SR33 & IN THE SOUTHERN CALIFORNIA AREA\\
+                SR3 & IN THE NORTHERN CALIFORNIA AREA\\
+                SR270 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR267 & IN THE NORTHERN CALIFORNIA AREA\\
+                SR203 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR20 & IN THE NORTHERN CALIFORNIA AREA\\
+                SR2 & IN THE SOUTHERN CALIFORNIA AREA\\
+                SR18 & IN THE SOUTHERN CALIFORNIA AREA\\
+                SR172 & IN THE NORTHERN CALIFORNIA AREA\\
+                SR168 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR158 & IN THE CENTRAL CALIFORNIA AREA \& SIERRA NEVADA\\
+                SR138 & IN THE SOUTHERN CALIFORNIA AREA\\
+                SR130 & IN THE CENTRAL CALIFORNIA AREA
         \end{tabular}
         \hspace*{-4cm}
 \end{center}
@@ -56,13 +56,13 @@ I ran the following query
 \begin{verbatim}
 SELECT a.highway, a.area, closedPct
 FROM
-  (SELECT highway, area, COUNT(*) AS count
+  (SELECT highway, area
    FROM caltrans
    WHERE text LIKE '%closed%'
      AND (text LIKE '%for the winter%'
        OR text LIKE '%due to snow%')
    GROUP BY highway, area
-   ORDER BY count DESC)
+   ORDER BY highway DESC, area DESC)
   AS a
 JOIN
   (SELECT highway, area, count(*)*100/365 AS closedPct
@@ -79,7 +79,7 @@ ON a.highway = closure.highway
 ORDER BY closedPct DESC
 LIMIT 5;
 \end{verbatim}
-and got the folliwng result set.
+and got the following result set.
 \begin{center}
         \hspace*{-4cm}
         \begin{tabular}{c|c|c}
