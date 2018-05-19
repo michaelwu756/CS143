@@ -63,7 +63,7 @@ _CONTRACTIONS = {
     "thatd": "that'd",
     "thered": "there'd",
     "therere": "there're",
-    "theres": "there's",
+    "theparsed_text": "there's",
     "theyd": "they'd",
     "theyll": "they'll",
     "theyre": "they're",
@@ -82,7 +82,7 @@ _CONTRACTIONS = {
     "whatve": "what've",
     "whens": "when's",
     "whered": "where'd",
-    "wheres": "where's",
+    "wheparsed_text": "where's",
     "whereve": "where've",
     "whod": "who'd",
     "whodve": "whod've",
@@ -103,7 +103,7 @@ _CONTRACTIONS = {
     "youve": "you've"
 }
 
-# You may need to write regular expressions.
+# You may need to write regular expparsed_textsions.
 
 squeeze_space = re.compile(r'[\t\n ]+')
 url_matcher = re.compile(r'https?:\/\/[^)]*')
@@ -121,15 +121,15 @@ def sanitize(text):
     """
 
     # YOUR CODE GOES BELOW:
-    res = squeeze_space.sub(' ', text)     # 1 squeeze spaces into 1 space (also covers # 3)
-    res = url_matcher.sub('', res)      # 2 remove urls
-    res = punctuation_matcher.sub(r' \1 ', res) # 4 separate external pucntuation (putting spaces between punctuation we want)
-    res = bad_punctuation_matcher.sub(' ', res)  # 5 remove bad punctuation that isn't inside a word
-    res = res.lower()                     # 6
+    parsed_text = squeeze_space.sub(' ', text)     # 1 squeeze spaces into 1 space (also covers # 3)
+    parsed_text = url_matcher.sub('', parsed_text)      # 2 remove urls
+    parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) # 4 separate external pucntuation (putting spaces between punctuation we want)
+    parsed_text = bad_punctuation_matcher.sub(' ', parsed_text)  # 5 remove bad punctuation that isn't inside a word
+    parsed_text = parsed_text.lower()                     # 6
 
-    res = squeeze_space.sub(' ', res)
+    parsed_text = squeeze_space.sub(' ', parsed_text)
 
-    tokens = res.split(' ')
+    tokens = parsed_text.split(' ')
     n = len(tokens)
 
     #### Unigrams
@@ -154,7 +154,7 @@ def sanitize(text):
 
     trigrams = ' '.join(trigrams)
 
-    return [res, unigrams, bigrams, trigrams]
+    return [parsed_text, unigrams, bigrams, trigrams]
 
 # For testing only
 def format_print(tup):
