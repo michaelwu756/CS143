@@ -105,10 +105,10 @@ _CONTRACTIONS = {
 
 # You may need to write regular expparsed_textsions.
 
-squeeze_space = re.compile(r'[\t\n ]+')
-url_matcher = re.compile(r'https?:\/\/[^)]*')
-punctuation_matcher = re.compile(r'([?.,:;!])')
-bad_punctuation_matcher = re.compile(r'[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]')      # is fucked up but is semi-working
+squeeze_space = re.compile(r"[\t\n ]+")
+url_matcher = re.compile(r"https?:\/\/[^)]*")
+punctuation_matcher = re.compile(r"([?.,:;!])")
+bad_punctuation_matcher = re.compile(r"[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]")      # is fucked up but is semi-working
 
 
 def sanitize(text):
