@@ -181,3 +181,9 @@ if __name__ == "__main__":
     # Should remove the starting and ending closing parenthesis, but does not
     # Fix by adding additional space at start and end?
     format_print(sanitize("(Hello)")) 
+
+    try:
+        while 1:
+            format_print(sanitize(input("Try input...: ")))
+    except(KeyboardInterrupt):
+        print("exiting...")
