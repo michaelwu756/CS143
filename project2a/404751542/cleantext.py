@@ -63,7 +63,7 @@ _CONTRACTIONS = {
     "thatd": "that'd",
     "thered": "there'd",
     "therere": "there're",
-    "theparsed_text": "there's",
+    "theres": "there's",
     "theyd": "they'd",
     "theyll": "they'll",
     "theyre": "they're",
@@ -82,7 +82,7 @@ _CONTRACTIONS = {
     "whatve": "what've",
     "whens": "when's",
     "whered": "where'd",
-    "wheparsed_text": "where's",
+    "wheres": "where's",
     "whereve": "where've",
     "whod": "who'd",
     "whodve": "whod've",
@@ -103,10 +103,10 @@ _CONTRACTIONS = {
     "youve": "you've"
 }
 
-# You may need to write regular expparsed_textsions.
+# You may need to write regular expressions.
 
 squeeze_space = re.compile(r'[\t\n ]+')
-url_matcher = re.compile(r'https?:\/\/[^)]*')
+url_matcher = re.compile(r'https?:\/\/[^ ]*|www.[^ ]*')
 punctuation_matcher = re.compile(r'([?.,:;!])')
 bad_punctuation_matcher = re.compile(r'[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]')      # is fucked up but is semi-working
 
@@ -124,12 +124,13 @@ def sanitize(text):
     parsed_text = squeeze_space.sub(' ', text)     # 1 squeeze spaces into 1 space (also covers # 3)
     parsed_text = url_matcher.sub('', parsed_text)      # 2 remove urls
     parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) # 4 separate external pucntuation (putting spaces between punctuation we want)
-    parsed_text = bad_punctuation_matcher.sub(' ', parsed_text)  # 5 remove bad punctuation that isn't inside a word
+    parsed_text = bad_punctuation_matcher.sub('', parsed_text)  # 5 remove bad punctuation that isn't inside a word
     parsed_text = parsed_text.lower()                     # 6
 
     parsed_text = squeeze_space.sub(' ', parsed_text)
 
     tokens = parsed_text.split(' ')
+    tokens = list(filter(None, tokens))
     n = len(tokens)
 
     #### Unigrams
@@ -176,8 +177,17 @@ if __name__ == "__main__":
     format_print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # test 2
     format_print(sanitize("FUCK [some text](http://facebook.com) this is a url that we need'ed to remove. yaauhklh"))
+    format_print(sanitize(" (my)Hello ")) 
+    format_print(sanitize("hello h()h hello")) 
+    format_print(sanitize("test-testing"))
+    format_print(sanitize("hello: -test-testing"))
 
     # Failed Case 1
     # Should remove the starting and ending closing parenthesis, but does not
     # Fix by adding additional space at start and end?
     format_print(sanitize("(Hello)")) 
+
+    format_print(sanitize("This is a failed case: 'tis"))
+
+    # test 3
+    format_print(sanitize("www.facebook.com"))
