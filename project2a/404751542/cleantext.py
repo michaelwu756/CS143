@@ -128,7 +128,7 @@ def sanitize(text):
     parsed_text = bad_punctuation_matcher.sub('', parsed_text)  # 5 remove bad punctuation that isn't inside a word
     parsed_text = parsed_text.lower()                     # 6
 
-    parsed_text = squeeze_space.sub(' ', parsed_text)
+    parsed_text = squeeze_space.sub(' ', parsed_text).strip()
 
     tokens = parsed_text.split(' ')
     tokens = list(filter(None, tokens))
