@@ -111,6 +111,47 @@ url_matcher = re.compile(r'https?:\/\/[^ ]*|www.[^ ]*')
 punctuation_matcher = re.compile(r'([?.,:;!])')
 bad_punctuation_matcher = re.compile(r"[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]")      # is fucked up but is semi-working
 
+def space_valid_punctuations(text):
+    res = ""
+    i = 0
+    while i < len(text):
+        if ((res == "" or res[len(res) - 1] == ' ') and
+            text[i] is not in range(ord('a'), ord('z')) and
+            text[i] is not in range(ord('A'), ord('Z')) and
+            text[i] is not in range(ord('0'), ord('9')) and
+            text[i] != "'" and
+            text[i] != " "):
+            if (text[i] == "?" or
+                text[i] == "!" or
+                text[i] == "." or
+                text[i] == "," or
+                text[i] == ";" or
+                text[i] == ":"):
+                res = res + text[i] + " "
+        else:
+            res = res + text[i]
+        i = i + 1
+    rev = res[::-1]
+    res = ""
+    i = 0
+    while i < len(rev):
+        if ((res == "" or res[len(res) - 1] == ' ') and
+            rev[i] is not in range(ord('a'), ord('z')) and
+            rev[i] is not in range(ord('A'), ord('Z')) and
+            rev[i] is not in range(ord('0'), ord('9')) and
+            rev[i] != "'" and
+            rev[i] != " "):
+            if (text[i] == "?" or
+                text[i] == "!" or
+                text[i] == "." or
+                text[i] == "," or
+                text[i] == ";" or
+                text[i] == ":"):
+                res = res + rev[i] + " "
+        else:
+            res = res + rev[i]
+        i = i+1
+    return res[::-1]
 
 def sanitize(text):
     """Do parse the text in variable "text" according to the spec, and return
