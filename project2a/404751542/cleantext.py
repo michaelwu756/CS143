@@ -130,8 +130,8 @@ def space_valid_punctuations(text):
                 res = res + text[i] + " "
         else:
             res = res + text[i]
-        i = i + 1
         print(res + text[i])
+        i = i + 1
     rev = "".join(reversed(res))
     res = ""
     i = 0
@@ -151,8 +151,8 @@ def space_valid_punctuations(text):
                 res = res + rev[i] + " "
         else:
             res = res + rev[i]
-        i = i+1
         print(res + text[i])
+        i = i + 1
     return res[::-1]
 
 def sanitize(text):
