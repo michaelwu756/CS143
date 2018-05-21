@@ -107,10 +107,10 @@ _CONTRACTIONS = {
 
 # You may need to write regular expressions.
 
-squeeze_space = re.compile(r"[\t\n ]+")
-url_matcher = re.compile(r"https?:\/\/[^ ]*")
-www_matcher = re.compile(r"www.[^ ]*")
-punctuation_matcher = re.compile(r"([?.,:;!])")
+squeeze_space = re.compile(r'[\t\n ]+')
+url_matcher = re.compile(r'https?:\/\/[^ ]*|www.[^ ]*')
+punctuation_matcher = re.compile(r'([?.,:;!])')
+letter_matcher = re.compile(r'([A-Za-z0-9])')
 bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]|[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]$")      # is fucked up but is semi-working
 
 
@@ -215,8 +215,8 @@ def sanitize(text):
 
 # For testing only
 def format_print(tup):
-    for t in tup:
-        print(t)
+    for i in range(len(tup)):
+        print(">>>>>>>" + str(i), tup[i])
 
 if __name__ == "__main__":
     # This is the Python main function.
@@ -246,12 +246,13 @@ if __name__ == "__main__":
 
 
     with open(filename) as f:
-        lines = f.readlines()
+
+        lines = [f.readline()]
         lines = [x.strip() for x in lines]
         for line in lines:
-            json_line = json.dumps(line)
-            line_body = json_line["body"]
-            format_print(sanitize(line_body))
+            json_line = json.loads(line)
+            line_body = str(json_line["body"])
+            print(sanitize(line_body))
 
 
     # try:
