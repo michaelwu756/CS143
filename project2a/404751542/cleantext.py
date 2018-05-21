@@ -150,7 +150,6 @@ def space_valid_punctuations(text):
                 res = res + rev[i] + " "
         else:
             res = res + rev[i]
-        print(res + rev[i])
         i = i + 1
     return res[::-1]
 
