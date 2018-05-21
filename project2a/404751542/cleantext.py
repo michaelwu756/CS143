@@ -111,7 +111,7 @@ squeeze_space = re.compile(r'[\t\n ]+')
 url_matcher = re.compile(r'https?:\/\/[^ ]*|www.[^ ]*')
 punctuation_matcher = re.compile(r'([?.,:;!])')
 letter_matcher = re.compile(r'([A-Za-z0-9])')
-bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]|[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]$")      # is fucked up but is semi-working
+bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ]+[^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]+|[^A-Za-z0-9?!.,;: ]+[^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]+$")      # is fucked up but is semi-working
 
 
 
@@ -247,12 +247,12 @@ if __name__ == "__main__":
 
     with open(filename) as f:
 
-        lines = [f.readline()]
+        lines = f.readlines()
         lines = [x.strip() for x in lines]
         for line in lines:
             json_line = json.loads(line)
             line_body = str(json_line["body"])
-            print(sanitize(line_body))
+            print(str(sanitize(line_body)))
 
 
     # try:
