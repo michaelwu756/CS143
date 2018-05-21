@@ -114,6 +114,27 @@ punctuation_matcher = re.compile(r"([?.,:;!])")
 bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]|[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]$")      # is fucked up but is semi-working
 
 
+
+def add_spaces_to_external_punctuation_in_front_of_word(parsed_text):
+    temp = ""
+    i = 0
+    insideWord = False
+    while i < len(parsed_text):
+         ## external punctuation, replace with " <punc> "
+        if (punctuation_matcher.match(parsed_text[i]) is not None) and not insideWord:
+            temp += parsed_text[i] + " "
+        else:
+            ## Letter encountered, now inside word
+            if (letter_matcher.match(parsed_text[i]) is not None) and not insideWord:
+                insideWord = True
+            ## Space encountered, end of word reached
+            if (squeeze_space.match(parsed_text[i]) is not None) and insideWord:
+                insideWord = False
+
+            temp += parsed_text[i]
+        i += 1
+    return temp
+
 def sanitize(text):
     """Do parse the text in variable "text" according to the spec, and return
     a LIST containing FOUR strings 
@@ -121,6 +142,7 @@ def sanitize(text):
     2. The unigrams
     3. The bigrams
     4. The trigrams
+    heelo!hello
     """
 
     # YOUR CODE GOES BELOW:
@@ -135,10 +157,13 @@ def sanitize(text):
 
     # 2 remove urls
     parsed_text = url_matcher.sub('', parsed_text)      
-    parsed_text = www_matcher.sub('', parsed_text)      
 
     # 4 separate external pucntuation (putting spaces between punctuation we want)
-    parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) 
+    # parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) 
+
+    parsed_text = add_spaces_to_external_punctuation_in_front_of_word(parsed_text)
+    parsed_text = add_spaces_to_external_punctuation_in_front_of_word(parsed_text[::-1])[::-1]
+    parsed_text = squeeze_space.sub(' ', parsed_text)
 
     # print("YYYYY" + parsed_text)
 
@@ -147,9 +172,8 @@ def sanitize(text):
     i = 0
     while i < len(temp_tokens):
         t = temp_tokens[i]
-        # print(t, bad_punctuation_matcher.match(" " + t + " "))
         if t not in _CONTRACTIONS.values():
-            temp_tokens[i] = bad_punctuation_matcher.sub(' ', " " + t + " ")
+            temp_tokens[i] = bad_punctuation_matcher.sub('', " " + t + " ")
         i += 1
     parsed_text = ' '.join(temp_tokens)
 
@@ -162,6 +186,7 @@ def sanitize(text):
 
 
     tokens = parsed_text.split(' ')
+    tokens = list(filter(None, tokens))
     n = len(tokens)
 
     #### Unigrams
@@ -234,3 +259,4 @@ if __name__ == "__main__":
     #         format_print(sanitize(input("Try input...: ")))
     # except(KeyboardInterrupt):
     #     print("exiting...")
+
