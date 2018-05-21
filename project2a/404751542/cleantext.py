@@ -121,19 +121,15 @@ def space_valid_punctuations(text):
             ord(text[i]) not in range(ord('0'), ord('9')) and
             text[i] != "'" and
             text[i] != " "):
-                if (text[i] == "?" or
-                    text[i] == "!" or
-                    text[i] == "." or
-                    text[i] == "," or
-                    text[i] == ";" or
-                    text[i] == ":"):
-                        print('a--')
-                        res = res + text[i] + " "
-                print('b--')
+            if (text[i] == "?" or
+                text[i] == "!" or
+                text[i] == "." or
+                text[i] == "," or
+                text[i] == ";" or
+                text[i] == ":"):
+                res = res + text[i] + " "
         else:
-            print('c--')
             res = res + text[i]
-        print(str(i) + res + text[i])
         i = i + 1
     rev = res[::-1]
     res = ""
@@ -145,13 +141,13 @@ def space_valid_punctuations(text):
             ord(rev[i]) not in range(ord('0'), ord('9')) and
             rev[i] != "'" and
             rev[i] != " "):
-                if (rev[i] == "?" or
-                    rev[i] == "!" or
-                    rev[i] == "." or
-                    rev[i] == "," or
-                    rev[i] == ";" or
-                    rev[i] == ":"):
-                        res = res + rev[i] + " "
+            if (rev[i] == "?" or
+                rev[i] == "!" or
+                rev[i] == "." or
+                rev[i] == "," or
+                rev[i] == ";" or
+                rev[i] == ":"):
+                res = res + rev[i] + " "
         else:
             res = res + rev[i]
         print(res + rev[i])
