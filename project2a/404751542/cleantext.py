@@ -5,6 +5,8 @@
 from __future__ import print_function
 
 import re
+import sys
+import json
 import string
 import argparse
 
@@ -109,7 +111,7 @@ squeeze_space = re.compile(r"[\t\n ]+")
 url_matcher = re.compile(r"https?:\/\/[^ ]*")
 www_matcher = re.compile(r"www.[^ ]*")
 punctuation_matcher = re.compile(r"([?.,:;!])")
-bad_punctuation_matcher = re.compile(r"[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]")      # is fucked up but is semi-working
+bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]|[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]$")      # is fucked up but is semi-working
 
 
 def sanitize(text):
@@ -138,15 +140,16 @@ def sanitize(text):
     # 4 separate external pucntuation (putting spaces between punctuation we want)
     parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) 
 
+    # print("YYYYY" + parsed_text)
+
     # 5 remove bad punctuation that isn't inside a word and isn't a contraction
     temp_tokens = parsed_text.split(' ')
     i = 0
     while i < len(temp_tokens):
-        t = " " + temp_tokens[i] + " "
-        print(bad_punctuation_matcher.match(t))
-        if bad_punctuation_matcher.match(t) and t not in _CONTRACTIONS.values():
-            temp_tokens[i] = bad_punctuation_matcher.sub(' ', t)
-            continue
+        t = temp_tokens[i]
+        # print(t, bad_punctuation_matcher.match(" " + t + " "))
+        if t not in _CONTRACTIONS.values():
+            temp_tokens[i] = bad_punctuation_matcher.sub(' ', " " + t + " ")
         i += 1
     parsed_text = ' '.join(temp_tokens)
 
@@ -202,17 +205,32 @@ if __name__ == "__main__":
 
     # For testing
     # test 1
-    format_print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
-    # test 2
-    format_print(sanitize("FUCK [some text](http://facebook.com) this is a url that we need'ed to remove. yaauhklh"))
+    # format_print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
+    # # test 2
+    # format_print(sanitize("FUCK [some text](http://facebook.com) this is a url that we need'ed to remove. yaauhklh"))
 
-    # Failed Case 1
-    # Should remove the starting and ending closing parenthesis, but does not
-    # Fix by adding additional space at start and end?
-    format_print(sanitize("(Hello)")) 
+    # # Failed Case 1
+    # # Should remove the starting and ending closing parenthesis, but does not
+    # # Fix by adding additional space at start and end?
+    # format_print(sanitize("(Hello)")) 
 
     try:
-        while 1:
-            format_print(sanitize(input("Try input...: ")))
-    except(KeyboardInterrupt):
-        print("exiting...")
+        filename = sys.argv[1]
+    except(Exception):
+        print("Problem reading file")
+
+
+    with open(filename) as f:
+        lines = f.readlines()
+        lines = [x.strip() for x in lines]
+        for line in lines:
+            json_line = json.dumps(line)
+            line_body = json_line["body"]
+            format_print(sanitize(line_body))
+
+
+    # try:
+    #     while 1:
+    #         format_print(sanitize(input("Try input...: ")))
+    # except(KeyboardInterrupt):
+    #     print("exiting...")
