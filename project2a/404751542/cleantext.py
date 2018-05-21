@@ -131,7 +131,7 @@ def space_valid_punctuations(text):
         else:
             res = res + text[i]
         i = i + 1
-    rev = res[::-1]
+    rev = "".join(reversed(res))
     res = ""
     i = 0
     while i < len(rev):
