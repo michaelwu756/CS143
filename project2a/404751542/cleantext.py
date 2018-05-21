@@ -108,10 +108,10 @@ _CONTRACTIONS = {
 # You may need to write regular expressions.
 
 squeeze_space = re.compile(r'[\t\n ]+')
-url_matcher = re.compile(r'https?:\/\/[^ ]*|www.[^ ]*')
+url_matcher = re.compile(r'https?:\/\/[^ ]*|www\.[^ ]*|\/r\/[^ ]*')
 punctuation_matcher = re.compile(r'([?.,:;!])')
 letter_matcher = re.compile(r'([A-Za-z0-9])')
-bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ]+[^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]+|[^A-Za-z0-9?!.,;: ]+[^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]+$")      # is fucked up but is semi-working
+bad_punctuation_matcher = re.compile(r"^[^A-Za-z0-9?!.,;: ]+[^A-Za-z0-9?!.,;:]|^[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]+|[^A-Za-z0-9?!.,;: ]+[^A-Za-z0-9?!.,;:]$|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]+$")      # is fucked up but is working
 
 
 
