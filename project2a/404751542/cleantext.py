@@ -176,7 +176,8 @@ def sanitize(text):
     parsed_text = url_matcher.sub('', parsed_text)      
 
     # 4 separate external pucntuation (putting spaces between punctuation we want)
-    parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) 
+    parsed_text = space_valid_punctuations(parsed_text)
+    print("RESULT OF PROCEDURAL CODE" + parsed_text)
 
     # 5 remove bad punctuation that isn't inside a word and isn't a contraction
     temp_tokens = parsed_text.split(' ')
