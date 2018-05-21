@@ -163,13 +163,12 @@ def sanitize(text):
     parsed_text = add_spaces_to_external_punctuation_in_front_of_word(parsed_text[::-1])[::-1]
     parsed_text = squeeze_space.sub(' ', parsed_text)
 
-
     # 5 remove bad punctuation that isn't inside a word and isn't a contraction
     temp_tokens = parsed_text.split(' ')
     i = 0
     while i < len(temp_tokens):
         t = temp_tokens[i]
-        if bad_punctuation_matcher.match(" " + t + " ") and t not in _CONTRACTIONS.values():
+        if t not in _CONTRACTIONS.values():
             temp_tokens[i] = bad_punctuation_matcher.sub('', " " + t + " ")
         i += 1
     parsed_text = ' '.join(temp_tokens)
