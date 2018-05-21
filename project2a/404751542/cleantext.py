@@ -116,9 +116,9 @@ def space_valid_punctuations(text):
     i = 0
     while i < len(text):
         if ((res == "" or res[len(res) - 1] == ' ') and
-            text[i] not in range(ord('a'), ord('z')) and
-            text[i] not in range(ord('A'), ord('Z')) and
-            text[i] not in range(ord('0'), ord('9')) and
+            ord(text[i]) not in range(ord('a'), ord('z')) and
+            ord(text[i]) not in range(ord('A'), ord('Z')) and
+            ord(text[i]) not in range(ord('0'), ord('9')) and
             text[i] != "'" and
             text[i] != " "):
                 if (text[i] == "?" or
@@ -135,14 +135,14 @@ def space_valid_punctuations(text):
             res = res + text[i]
         print(str(i) + res + text[i])
         i = i + 1
-    rev = "".join(reversed(res))
+    rev = res[::-1]
     res = ""
     i = 0
     while i < len(rev):
         if ((res == "" or res[len(res) - 1] == ' ') and
-            rev[i] not in range(ord('a'), ord('z')) and
-            rev[i] not in range(ord('A'), ord('Z')) and
-            rev[i] not in range(ord('0'), ord('9')) and
+            ord(rev[i]) not in range(ord('a'), ord('z')) and
+            ord(rev[i]) not in range(ord('A'), ord('Z')) and
+            ord(rev[i]) not in range(ord('0'), ord('9')) and
             rev[i] != "'" and
             rev[i] != " "):
                 if (text[i] == "?" or
