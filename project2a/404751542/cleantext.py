@@ -170,7 +170,7 @@ def sanitize(text):
     while i < len(temp_tokens):
         t = temp_tokens[i]
         if bad_punctuation_matcher.match(" " + t + " ") and t not in _CONTRACTIONS.values():
-            temp_tokens[i] = bad_punctuation_matcher.sub('', t)
+            temp_tokens[i] = bad_punctuation_matcher.sub('', " " + t + " ")
         i += 1
     parsed_text = ' '.join(temp_tokens)
 
