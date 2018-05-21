@@ -127,10 +127,13 @@ def space_valid_punctuations(text):
                     text[i] == "," or
                     text[i] == ";" or
                     text[i] == ":"):
+                        print 'a--':
                         res = res + text[i] + " "
+                print 'b--'
         else:
+            print 'c--'
             res = res + text[i]
-        print(res + text[i])
+        print(str(i) + res + text[i])
         i = i + 1
     rev = "".join(reversed(res))
     res = ""
