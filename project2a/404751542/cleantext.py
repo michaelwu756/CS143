@@ -145,12 +145,12 @@ def space_valid_punctuations(text):
             ord(rev[i]) not in range(ord('0'), ord('9')) and
             rev[i] != "'" and
             rev[i] != " "):
-                if (text[i] == "?" or
-                    text[i] == "!" or
-                    text[i] == "." or
-                    text[i] == "," or
-                    text[i] == ";" or
-                    text[i] == ":"):
+                if (rev[i] == "?" or
+                    rev[i] == "!" or
+                    rev[i] == "." or
+                    rev[i] == "," or
+                    rev[i] == ";" or
+                    rev[i] == ":"):
                         res = res + rev[i] + " "
         else:
             res = res + rev[i]
