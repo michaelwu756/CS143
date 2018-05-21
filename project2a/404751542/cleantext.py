@@ -109,7 +109,7 @@ _CONTRACTIONS = {
 squeeze_space = re.compile(r'[\t\n ]+')
 url_matcher = re.compile(r'https?:\/\/[^ ]*|www.[^ ]*')
 punctuation_matcher = re.compile(r'([?.,:;!])')
-bad_punctuation_matcher = re.compile(r"[^A-Za-z0-9'?!.,;: ][^A-Za-z0-9'?!.,;:]|[^A-Za-z0-9'?!.,;:][^A-Za-z0-9'?!.,;: ]")      # is fucked up but is semi-working
+bad_punctuation_matcher = re.compile(r"[^A-Za-z0-9?!.,;: ][^A-Za-z0-9?!.,;:]|[^A-Za-z0-9?!.,;:][^A-Za-z0-9?!.,;: ]")      # is fucked up but is semi-working
 
 
 def sanitize(text):
