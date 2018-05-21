@@ -161,7 +161,7 @@ def sanitize(text):
 
     parsed_text = add_spaces_to_external_punctuation_in_front_of_word(parsed_text)
     parsed_text = add_spaces_to_external_punctuation_in_front_of_word(parsed_text[::-1])[::-1]
-    parsed_text = squeeze_space.sub(' ', text)
+    parsed_text = squeeze_space.sub(' ', parsed_text)
 
 
     # 5 remove bad punctuation that isn't inside a word and isn't a contraction
