@@ -122,14 +122,41 @@ def sanitize(text):
     """
 
     # YOUR CODE GOES BELOW:
-    parsed_text = squeeze_space.sub(' ', text)     # 1 squeeze spaces into 1 space (also covers # 3)
-    parsed_text = url_matcher.sub('', parsed_text)      # 2 remove urls
-    parsed_text = www_matcher.sub('', parsed_text)      # 3 remove www
-    parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) # 4 separate external pucntuation (putting spaces between punctuation we want)
-    parsed_text = bad_punctuation_matcher.sub(' ', parsed_text)  # 5 remove bad punctuation that isn't inside a word
+
+
+
+    ###$ PARSING TEXT
+
+
+    # 1 squeeze spaces into 1 space (also covers # 3)
+    parsed_text = squeeze_space.sub(' ', text)     
+
+    # 2 remove urls
+    parsed_text = url_matcher.sub('', parsed_text)      
+    parsed_text = www_matcher.sub('', parsed_text)      
+
+    # 4 separate external pucntuation (putting spaces between punctuation we want)
+    parsed_text = punctuation_matcher.sub(r' \1 ', parsed_text) 
+
+    # 5 remove bad punctuation that isn't inside a word and isn't a contraction
+    temp_tokens = parsed_text.split(' ')
+    i = 0
+    while i < len(temp_tokens):
+        t = " " + temp_tokens[i] + " "
+        print(bad_punctuation_matcher.match(t))
+        if bad_punctuation_matcher.match(t) and t not in _CONTRACTIONS.values():
+            temp_tokens[i] = bad_punctuation_matcher.sub(' ', t)
+            continue
+        i += 1
+    parsed_text = ' '.join(temp_tokens)
+
+
+    # parsed_text = bad_punctuation_matcher.sub(' ', parsed_text)  # 5 remove bad punctuation that isn't inside a word
     parsed_text = parsed_text.lower()                     # 6
 
+    # squeeze spaces again and strip leading and ending spaces
     parsed_text = squeeze_space.sub(' ', parsed_text).strip()
+
 
     tokens = parsed_text.split(' ')
     n = len(tokens)
