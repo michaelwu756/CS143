@@ -178,25 +178,11 @@ def sanitize(text):
     # 4 separate external pucntuation (putting spaces between punctuation we want)
     parsed_text = space_valid_punctuations(parsed_text)
 
-    # 5 remove bad punctuation that isn't inside a word and isn't a contraction
-    temp_tokens = parsed_text.split(' ')
-    i = 0
-    while i < len(temp_tokens):
-        t = " " + temp_tokens[i] + " "
-        print(bad_punctuation_matcher.match(t))
-        if bad_punctuation_matcher.match(t) and t not in _CONTRACTIONS.values():
-            temp_tokens[i] = bad_punctuation_matcher.sub(' ', t)
-            continue
-        i += 1
-    parsed_text = ' '.join(temp_tokens)
-
-
-    # parsed_text = bad_punctuation_matcher.sub(' ', parsed_text)  # 5 remove bad punctuation that isn't inside a word
-    parsed_text = parsed_text.lower()                     # 6
-
     # squeeze spaces again and strip leading and ending spaces
     parsed_text = squeeze_space.sub(' ', parsed_text).strip()
 
+    # parsed_text = bad_punctuation_matcher.sub(' ', parsed_text)  # 5 remove bad punctuation that isn't inside a word
+    parsed_text = parsed_text.lower()                     # 6
 
     tokens = parsed_text.split(' ')
     tokens = list(filter(None, tokens))
