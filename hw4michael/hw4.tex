@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+\title{Computer Science 143, Homework 4}
+\date{June 1st, 2018}
+\author{Michael Wu\\UID: 404751542}
+\maketitle
+
+\section*{Part 1}
+
+\subsection*{Problem 1}
+
+Yes, this is a lossless decomposition. Since \(A\rightarrow BC\) and \(B\rightarrow D\), we have that \(A\rightarrow BCD\). Then
+since \(CD\rightarrow E\), we have that \(A\rightarrow BCDE\). So \(A\rightarrow ADE\), and \(A\) is a superkey for \(R_2\). Since
+\(R_1 \cap R_2 = \{A\}\), we have \(R_1 \cap R_2 \rightarrow R_2\).
+
+\subsection*{Problem 2}
+
+\[\{A\rightarrow B, C\rightarrow B, C\rightarrow A\}\]
+
+\subsection*{Problem 3}
+
+\paragraph{a)}
+
+Yes. We have that \(E\rightarrow A\) and \(A\rightarrow BC\), so \(E\rightarrow ABC\). Then we have \(B\rightarrow D\), so \(E\rightarrow ABCD\).
+Along with the trivial functional dependency \(E\rightarrow E\), we get \(E\rightarrow ABCDE\) or \(E\rightarrow R\). Thus \(E\) is a key for \(R\).
+
+\paragraph{b)}
+
+Yes. We have the trivial functional dependency \(BC\rightarrow BC\) and \(B\rightarrow D\), so \(BC\rightarrow BCD\). Then we have \(CD\rightarrow E\),
+so \(BC\rightarrow BCDE\). Finally we have \(E\rightarrow A\), so \(BC\rightarrow ABCDE\), or \(BC\rightarrow R\). Thus \(BC\) is a key for \(R\).
+
+\subsection*{Problem 4}
+
+This is not in BCNF. Consider the functional dependency \(B\rightarrow D\). The dependency \(B\rightarrow F\) cannot be derived from the closure of the
+set of funtional dependencies, so \(B\) is not a key for \(R\). Thus there exists some nontrivial functional dependency in \(R\) where the left hand side
+is not a key for \(R\). If it was in BCNF, this could not happen. To normalize it into BCNF, decompose it into the relations \(R_1(A,F)\), \(R_2(A,B,C)\),
+\(R_3(C,E)\), and \(R_4(B,D)\).
+
+\subsection*{Problem 5}
+
+\begin{multline*}
+        \{(a,b_1,c_1,d_2),(a,b_1,c_1,d_3),(a,b_2,c_2,d_1),\\
+        (a,b_2,c_2,d_3),(a,b_3,c_3,d_1),(a,b_3,c_3,d_2)\}
+\end{multline*}
+
+\subsection*{Problem 6}
+
+No it is not in 4NF. We have a nontrivial multivalue dependency \(A\twoheadrightarrow B\) where \(A\) is not a key, which violates the
+conditions of 4NF. To normalize it into 4NF, decompose it into the relations \(R_1(A,D,F)\), \(R_2(A,B)\), \(R_3(A,C)\), and \(R_4(A,E)\).
+
+\section*{Part 2}
+
+\subsection*{Problem 1}
+
+\subsection*{Problem 2}
+
+\section*{Part 3}
+
+\subsection*{Problem 1}
+
+\subsection*{Problem 2}
+
+\end{document}
