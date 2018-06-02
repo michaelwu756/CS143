@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{graphicx}
 \begin{document}
 \title{Computer Science 143, Homework 4}
 \date{June 1st, 2018}
@@ -50,16 +51,52 @@ is not a key for \(R\). If it was in BCNF, this could not happen. To normalize i
 No it is not in 4NF. We have a nontrivial multivalue dependency \(A\twoheadrightarrow B\) where \(A\) is not a key, which violates the
 conditions of 4NF. To normalize it into 4NF, decompose it into the relations \(R_1(A,D,F)\), \(R_2(A,B)\), \(R_3(A,C)\), and \(R_4(A,E)\).
 
+\pagebreak
+
 \section*{Part 2}
 
 \subsection*{Problem 1}
 
+\begin{figure}[!ht]
+    \begin{center}
+        \hspace*{-5cm}
+        \includegraphics[width=1.25\textwidth]{problem2-1.pdf}
+        \hspace*{-5cm}
+    \end{center}
+\end{figure}
+Some assumptions I made were that a given show could only be shown on one channel in a given city, and a network could only be associated with one
+channel in a given city. Multiple cities can have a given network on a given channel, and multiple cities can have a given show on a given channel.
+I used subclasses to represent the distiction between a network show and a local show. With these relationships, one can determine the channel
+that a show will be shown on. Separate from this, there is a weak entity set called ``Time Slot'' which allows us to determine when shows are shown
+in a given city. A show may be shown multiple times for a given city, a city may have multiple shows showing in a given time slot, and a show may
+have multiple cities that it's showing in for a given timeslot. Thus all the arrows in this relationship set are many to many.
+
 \subsection*{Problem 2}
+
+This can be converted into the three relations shown below.
+\begin{center}
+        assembly(\underline{number}, name, cost)\\
+        parts(\underline{number}, name)\\
+        composed\_of(\underline{assembly\_number}, parts\_number, quantity)
+\end{center}
+In these tables, assembly\_number is a foreign key that references the key of assembly, and parts\_number is a foreign key that references the key of parts.
 
 \section*{Part 3}
 
 \subsection*{Problem 1}
 
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics{problem3-1.png}
+    \end{center}
+\end{figure}
+
 \subsection*{Problem 2}
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics{problem3-2.png}
+    \end{center}
+\end{figure}
 
 \end{document}
