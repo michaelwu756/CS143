@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\usepackage{amsmath}
 \begin{document}
 \title{Computer Science 143, Homework 5}
 \date{June 8th, 2018}
@@ -9,12 +10,49 @@
 
 \paragraph{a)}
 
+Yes. Each transaction does not overlap with any other transaction.
+
 \paragraph{b)}
+
+Yes it is conflict serializable, as it is already serial. The order of the transactions are currently \(T_3\rightarrow T_1\rightarrow T_2\rightarrow T_4\).
+Note that this schedule is conflict equivalent to \(T_3\rightarrow T_1\rightarrow T_4\rightarrow T_2\).
 
 \section*{Problem 2}
 
 \paragraph{a)}
 
+We have the following execution schedules.
+\begin{gather*}
+        T_1\rightarrow T_2\rightarrow T_3\\
+        T_1\rightarrow T_3\rightarrow T_2\\
+        T_2\rightarrow T_1\rightarrow T_3\\
+        T_2\rightarrow T_3\rightarrow T_1\\
+        T_3\rightarrow T_1\rightarrow T_2\\
+        T_3\rightarrow T_2\rightarrow T_1
+\end{gather*}
+These yield the following values in order: 30, 30, 42, 36, 25, 37.
+
 \paragraph{b)}
+
+Since an update statement is both a read and a write, the transaction \(T_2\) will grab a lock on both rows in the table. It then releases it at the
+end of the transaction. So \(T_3\) cannot write in between \(T_2\), and \(T_2\) and \(T_3\) must be serializable with respect to each other.
+However, the transaction \(T_1\) can read at any time. Let \(T_2=AB\) and \(T_3=CD\), where \(A\), \(B\), \(C\), and \(D\) are
+the atomic statements that make up \(T_2\) and \(T_3\). Then we have the following possible execution schedules.
+\[
+        \begin{array}{c|c}
+                \text{Schedule} & \text{Output}\\
+                \hline
+                T_1ABCD & 30\\
+                AT_1BCD & 32\\
+                ABT_1CD & 42\\
+                ABCT_1D & 52\\
+                ABCDT_1 & 36\\
+                T_1CDAB & 30\\
+                CT_1DAB & 40\\
+                CDT_1AB & 25\\
+                CDAT_1B & 27\\
+                CDABT_1 & 37
+        \end{array}
+\]
 
 \end{document}
